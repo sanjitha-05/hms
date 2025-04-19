@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import axios from 'axios';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-doctor',
@@ -11,9 +10,8 @@ import { FormsModule } from '@angular/forms';
 export class DoctorComponent {
   doctorId: number | null = null;
   upcomingAppointments: any[] = [];
- 
-
-  
+  notifications: any[] = []; 
+  doctorNotifications: any[] = [];
 
   constructor() {
     // Retrieve the doctor ID from localStorage or sessionStorage (if applicable)
@@ -22,6 +20,7 @@ export class DoctorComponent {
       this.doctorId = parseInt(storedDoctorId, 10);
     }
     this.fetchAppointments();
+    this.fetchNotifications();
    
   }
 
@@ -31,6 +30,7 @@ export class DoctorComponent {
       return;
     }
 
+    
 
 
     try {
@@ -47,70 +47,29 @@ export class DoctorComponent {
       alert('Failed to fetch appointments. Please try again later.');
     }
   }
+
+  async fetchNotifications() {
+    if (!this.doctorId) {
+      alert('Doctor ID not found. Please log in again.');
+      return;
+    }
+
+    try {
+      // Call the backend API to fetch notifications for the doctor
+      const response = await axios.get(`http://localhost:8080/api/hospital/notifications/doctor/${this.doctorId}`);
+      console.log('Doctor Notifications:', response.data);
+      this.notifications = response.data; // Assign the fetched notifications to the array
+      this.doctorNotifications = this.notifications.filter((notification: any) =>
+        notification.message.startsWith('Hi')
+      );
+    
+    } catch (error) {
+      console.error('Error fetching notifications:', error);
+      alert('Failed to fetch notifications. Please try again later.');
+    }
+  }
+
   
-  
-  // loadStaticMedicalHistory() {
-  //   this.medicalHistory = [
-  //     {
-  //       dateOfVisit: '2023-09-15',
-  //       patientName: 'John Doe',
-  //       diagnosis: 'Flu',
-  //       treatment: 'Paracetamol, Rest, Hydration'
-  //     },
-  //     {
-  //       dateOfVisit: '2023-08-10',
-  //       patientName: 'Jane Smith',
-  //       diagnosis: 'Back Pain',
-  //       treatment: 'Ibuprofen, Physical Therapy'
-  //     }
-  //   ];
-  // }
-
-  // addMedicalHistory() {
-  //   if (!this.patientName || !this.diagnosis || !this.treatment || !this.dateOfVisit) {
-  //     alert('Please fill in all fields to add medical history.');
-  //     return;
-  //   }
-
-  //   const newHistory = {
-  //     dateOfVisit: this.dateOfVisit,
-  //     patientName: this.patientName,
-  //     diagnosis: this.diagnosis,
-  //     treatment: this.treatment
-  //   };
-
-  //   this.medicalHistory.push(newHistory); // Add the new record to the array
-  //   alert('Medical history added successfully!');
-
-  //   // Clear the form fields
-  //   this.patientName = '';
-  //   this.diagnosis = '';
-  //   this.treatment = '';
-  //   this.dateOfVisit = '';
-  // }
-
-
-  // addPrescription() {
-  //   if (!this.patientName || !this.diagnosis || !this.treatment) {
-  //     alert('Please fill in all fields to add a prescription.');
-  //     return;
-  //   }
-
-  //   const newPrescription = {
-  //     patientName: this.patientName,
-  //     diagnosis: this.diagnosis,
-  //     treatment: this.treatment
-  //   };
-
-  //   this.prescriptions.push(newPrescription); // Add the new prescription to the array
-  //   alert('Prescription added successfully!');
-
-  //   // Clear the form fields
-  //   this.patientName = '';
-  //   this.diagnosis = '';
-  //   this.treatment = '';
-  // }
-
   // blockedDates: string[] = []; // To store blocked dates
 
   // // Simulate creating availability for the next 7 days

@@ -24,6 +24,9 @@ public class AppointmentService {
 	@Autowired
 	private AppointmentRepository appointmentRepository;
 	
+    @Autowired
+    
+    private PatientProfileRepository patientProfileRepository;
 	@Autowired
 	private DoctorScheduleRepository doctorScheduleRepository;
 	
@@ -94,37 +97,82 @@ public class AppointmentService {
     }
     
     
+    // public String bookAppointment(Appointment appointment) {
+    	
+    //     Long doctorId = appointment.getDoctor().getDoctorId();
+    //     LocalDate date = appointment.getDoctor().getDate();
+    //     LocalTime timeSlot = appointment.getAppointmentTime();
+
+        
+    //     Optional<DoctorSchedule> optionalSchedule = doctorScheduleRepository.findById(new ScheduledId(doctorId, date));
+    //     if (optionalSchedule.isPresent()) {
+    //         DoctorSchedule schedule = optionalSchedule.get();
+    //         for (TimeSlot slot : schedule.getAvailableTimeSlots()) {
+    //             if (slot.getTimeSlot().equals(timeSlot) && !slot.isBlocked()) {
+    //                 slot.setBlocked(true);
+    //                 doctorScheduleRepository.save(schedule);
+
+    //                 // Save the appointment
+    //                 appointmentRepository.save(appointment);
+
+    //                 // Check if all slots are booked
+    //                 boolean allSlotsBooked = schedule.getAvailableTimeSlots().stream().allMatch(TimeSlot::isBlocked);
+    //                 if (allSlotsBooked) {
+    //                     doctorScheduleRepository.delete(schedule);
+    //                 }
+                    
+    //                 notificationService.createPatientNotification(appointment.getAppointmentId());
+    //                 notificationService.createDoctorNotification(appointment.getAppointmentId());
+
+    //                 return "Appointment booked successfully.";
+    //             }
+    //         }
+    //         return "Time slot not available.";
+    //     }
+    //     return "Doctor schedule not found.";
+    // }
+
     public String bookAppointment(Appointment appointment) {
-    	System.out.println(appointment.toString());
+        System.out.println(appointment.toString());
         Long doctorId = appointment.getDoctor().getDoctorId();
         LocalDate date = appointment.getDoctor().getDate();
         LocalTime timeSlot = appointment.getAppointmentTime();
-
-        Optional<DoctorSchedule> optionalSchedule = doctorScheduleRepository.findById(new ScheduledId(doctorId, date));
-        if (optionalSchedule.isPresent()) {
-            DoctorSchedule schedule = optionalSchedule.get();
-            for (TimeSlot slot : schedule.getAvailableTimeSlots()) {
-                if (slot.getTimeSlot().equals(timeSlot) && !slot.isBlocked()) {
-                    slot.setBlocked(true);
-                    doctorScheduleRepository.save(schedule);
-
-                    // Save the appointment
-                    appointmentRepository.save(appointment);
-
-                    // Check if all slots are booked
-                    boolean allSlotsBooked = schedule.getAvailableTimeSlots().stream().allMatch(TimeSlot::isBlocked);
-                    if (allSlotsBooked) {
-                        doctorScheduleRepository.delete(schedule);
-                    }
-                    
-                    notificationService.createNotificationsForAppointment(appointment.getAppointmentId());
-
-                    return "Appointment booked successfully.";
+    
+        // Fetch the full PatientProfile object
+        PatientProfile patient = patientProfileRepository.findById(appointment.getPatient().getPatientId())
+                .orElseThrow(() -> new RuntimeException("Patient not found with ID: " + appointment.getPatient().getPatientId()));
+    
+        // Fetch the full DoctorSchedule object
+        DoctorSchedule doctorSchedule = doctorScheduleRepository.findById(new ScheduledId(doctorId, date))
+                .orElseThrow(() -> new RuntimeException("Doctor schedule not found for ID: " + doctorId + " and date: " + date));
+    
+        // Set the full objects in the appointment
+        appointment.setPatient(patient);
+        appointment.setDoctor(doctorSchedule);
+    
+        // Check if the time slot is available
+        for (TimeSlot slot : doctorSchedule.getAvailableTimeSlots()) {
+            if (slot.getTimeSlot().equals(timeSlot) && !slot.isBlocked()) {
+                slot.setBlocked(true);
+                doctorScheduleRepository.save(doctorSchedule);
+    
+                // Save the appointment
+                appointmentRepository.save(appointment);
+    
+                // Check if all slots are booked
+                boolean allSlotsBooked = doctorSchedule.getAvailableTimeSlots().stream().allMatch(TimeSlot::isBlocked);
+                if (allSlotsBooked) {
+                    doctorScheduleRepository.delete(doctorSchedule);
                 }
+    
+                // Create notifications
+                notificationService.createPatientNotification(appointment.getAppointmentId());
+                notificationService.createDoctorNotification(appointment.getAppointmentId());
+    
+                return "Appointment booked successfully.";
             }
-            return "Time slot not available.";
         }
-        return "Doctor schedule not found.";
+        return "Time slot not available.";
     }
     
     public String cancelAppointment(Long appointmentId) {

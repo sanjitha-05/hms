@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import axios from 'axios';
 
 @Component({
   selector: 'app-medical-history',
@@ -8,56 +9,28 @@ import { Component } from '@angular/core';
 })
 export class MedicalHistoryComponent {
   medicalHistory: any[] = []; // To store medical history records
+  patientId: string | null = null;
 
-  // Fields for adding medical history
-  patientName: string = '';
-  diagnosis: string = '';
-  treatment: string = '';
-  dateOfVisit: string = '';
 
-  constructor() {
-    this.loadStaticMedicalHistory(); // Load static medical history
-  }
+  constructor() {}
 
-  // Load static medical history
-  loadStaticMedicalHistory() {
-    this.medicalHistory = [
-      {
-        dateOfVisit: '2023-09-15',
-        patientName: 'John Doe',
-        diagnosis: 'Flu',
-        treatment: 'Paracetamol, Rest, Hydration'
-      },
-      {
-        dateOfVisit: '2023-08-10',
-        patientName: 'Jane Smith',
-        diagnosis: 'Back Pain',
-        treatment: 'Ibuprofen, Physical Therapy'
-      }
-    ];
-  }
+  ngOnInit(): void {
+    // Retrieve the patient ID from localStorage
+    this.patientId = localStorage.getItem('userId');
 
-  // Add a new medical history record
-  addMedicalHistory() {
-    if (!this.patientName || !this.diagnosis || !this.treatment || !this.dateOfVisit) {
-      alert('Please fill in all fields to add medical history.');
-      return;
+    if (this.patientId) {
+      this.fetchMedicalHistory();
+    } else {
+      alert('Patient ID not found in localStorage. Please log in again.');
     }
-
-    const newHistory = {
-      dateOfVisit: this.dateOfVisit,
-      patientName: this.patientName,
-      diagnosis: this.diagnosis,
-      treatment: this.treatment
-    };
-
-    this.medicalHistory.push(newHistory); // Add the new record to the array
-    alert('Medical history added successfully!');
-
-    // Clear the form fields
-    this.patientName = '';
-    this.diagnosis = '';
-    this.treatment = '';
-    this.dateOfVisit = '';
+  }
+  async fetchMedicalHistory() {
+    try {
+      const response = await axios.get(`http://localhost:8080/api/hospital/history/view/${this.patientId}`);
+      this.medicalHistory = response.data; // Assign the fetched data to the array
+    } catch (error) {
+      console.error('Error fetching medical history:', error);
+      alert('Failed to fetch medical history. Please try again later.');
+    }
   }
 }

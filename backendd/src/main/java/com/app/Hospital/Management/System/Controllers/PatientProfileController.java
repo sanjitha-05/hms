@@ -62,6 +62,16 @@ public class PatientProfileController {
 	
 	@GetMapping("/get/{id}")
     public ResponseEntity<PatientProfile> getPatientById(@PathVariable Long id, Authentication authentication ) {
+
+		// if (authentication == null) {
+		// 	// Bypass authentication checks and directly fetch the patient
+		// 	Optional<PatientProfile> patient = patientProfileService.getPatientById(id);
+		// 	if (patient.isPresent()) {
+		// 		return ResponseEntity.ok(patient.get());
+		// 	} else {
+		// 		throw new IdNotFoundException("Patient not found with ID: " + id);
+		// 	}
+		// }
 		String mail1=authentication.getName() ;
 		Optional<PatientProfile> patient = patientProfileService.getPatientById(id);
         if (patient != null) {

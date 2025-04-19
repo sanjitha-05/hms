@@ -7,13 +7,14 @@
       <div class="navbar-right">
         <a href="#" (click)="onAbout()">About</a>
         <a href="#" (click)="onContact()">Contact Us</a>
+        <a href="#" (click)="onNotifications()">Notifications</a>
         <a href="#" (click)="onLogout()">Logout</a>
       </div>
     </nav>
   
     <!-- Main Content -->
     <div class="main-content">
-      <h1>Welcome, Patient!</h1>
+      <h1>Welcome, {{ patientName }}!</h1>
       <p>Manage your appointments and medical history here.</p>
       <div class="button-container">
         <button class="btn btn-primary" (click)="onBookAppointment()">Book Appointment</button>

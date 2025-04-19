@@ -4,6 +4,16 @@
     <!-- Create Availability -->
     <button class="btn btn-primary" (click)="createAvailability()">Create Availability</button>
   
+   <!-- Notifications Section -->
+   <div class="notifications-section">
+    <h3>Your Notifications</h3>
+    <ul>
+      <li *ngFor="let notification of doctorNotifications">
+        <strong>{{ notification.timeStamp }}</strong>: {{ notification.message }}
+      </li>
+    </ul>
+  </div>
+
     <!-- Upcoming Appointments -->
     <div class="appointments-section">
       <h3>Upcoming Appointments</h3>
@@ -28,6 +38,6 @@
     </div>
 
    <!-- Medical History Section -->
-   <app-medical-history></app-medical-history>
+   <app-prescription></app-prescription>
 
   </div>

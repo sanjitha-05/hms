@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.Hospital.Management.System.entities.Appointment;
+import com.app.Hospital.Management.System.entities.DoctorSchedule;
 import com.app.Hospital.Management.System.entities.Notification;
+import com.app.Hospital.Management.System.entities.PatientProfile;
 import com.app.Hospital.Management.System.repositories.AppointmentRepository;
 import com.app.Hospital.Management.System.repositories.NotificationRepository;
 
@@ -35,6 +37,50 @@ public class NotificationService {
 	public void deleteNotificationById(Long id) {
 		notificationRepository.deleteById(id);
     }
+
+	public void createPatientNotification(Long appointmentID) {
+        // Fetch the appointment using the appointmentID
+        Appointment appointment = appointmentRepository.findByAppointmentId(appointmentID)
+                .orElseThrow(() -> new RuntimeException("Appointment not found with ID: " + appointmentID));
+		
+				 PatientProfile patient = appointment.getPatient();
+    DoctorSchedule doctor = appointment.getDoctor();
+
+    if (patient == null || doctor == null) {
+        throw new RuntimeException("Patient or Doctor details are missing for the appointment ID: " + appointmentID);
+    }
+
+        // Create and save a notification for the patient
+        Notification patientNotification = new Notification();
+        patientNotification.setAppointment(appointment);
+        patientNotification.setMessage("Dear "+appointment.getPatient().getName()+" , your appointment with Doctor " + appointment.getDoctor().getName()
+                + " is " + appointment.getStatus() + " on the date " + appointment.getDoctor().getDate()
+                + " and the time " + appointment.getAppointmentTime() + ". Your appointment ID: " + appointmentID + ".");
+        patientNotification.setTimeStamp(LocalDateTime.now());
+        notificationRepository.save(patientNotification);
+    }
+
+	public void createDoctorNotification(Long appointmentID) {
+        // Fetch the appointment using the appointmentID
+        Appointment appointment = appointmentRepository.findByAppointmentId(appointmentID)
+                .orElseThrow(() -> new RuntimeException("Appointment not found with ID: " + appointmentID));
+
+
+				PatientProfile patient = appointment.getPatient();
+				DoctorSchedule doctor = appointment.getDoctor();
+			
+				if (patient == null || doctor == null) {
+					throw new RuntimeException("Patient or Doctor details are missing for the appointment ID: " + appointmentID);
+				}
+        // Create and save a notification for the doctor
+        Notification doctorNotification = new Notification();
+        doctorNotification.setAppointment(appointment);
+        doctorNotification.setMessage("Hi "+appointment.getDoctor().getName()+", you have an appointment with Patient " + appointment.getPatient().getName()
+                + " on the date " + appointment.getDoctor().getDate() + " and the time " + appointment.getAppointmentTime()
+                + ". Appointment ID: " + appointmentID + ".");
+        doctorNotification.setTimeStamp(LocalDateTime.now());
+        notificationRepository.save(doctorNotification);
+    }
 	
 	 public void createNotificationsForAppointment(Long appointmentID) {
 	        // Fetch the appointment using the appointmentID
@@ -44,7 +90,7 @@ public class NotificationService {
 	        // Create and save a notification for the patient
 	        Notification patientNotification = new Notification();
 	        patientNotification.setAppointment(appointment);
-	        patientNotification.setMessage("Dear Patient, your appointment with Doctor ID " + appointment.getDoctor().getDoctorId() + " is "+appointment.getStatus()+" on the date " +appointment.getDoctor().getDate()+" and the time "+ appointment.getAppointmentTime() + " and your appointment ID: " + appointmentID + ".");
+	        patientNotification.setMessage("Dear "+ appointment.getPatient().getName()+", your appointment with Doctor  " + appointment.getDoctor().getName() + " is "+appointment.getStatus()+" on the date " +appointment.getDoctor().getDate()+" and the time "+ appointment.getAppointmentTime() + " and your appointment ID: " + appointmentID + ".");
 	        patientNotification.setTimeStamp(LocalDateTime.now());
 	        notificationRepository.save(patientNotification);
 
@@ -55,6 +101,15 @@ public class NotificationService {
 	        doctorNotification.setTimeStamp(LocalDateTime.now());
 	        notificationRepository.save(doctorNotification);
 	    }
+
+		public List<Notification> getNotificationsByPatientId(Long patientId) {
+			return notificationRepository.findNotificationsByPatientId(patientId);
+		}
+	
+		// Fetch notifications for a specific doctor
+		public List<Notification> getNotificationsByDoctorId(Long doctorId) {
+			return notificationRepository.findNotificationsByDoctorId(doctorId);
+		}
 	 
 	 
 	 public void generateRemindersForAppointments() {

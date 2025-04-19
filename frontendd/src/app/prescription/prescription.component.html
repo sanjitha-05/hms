@@ -1,0 +1,42 @@
+<div class="prescription-container">
+    <h2>Write Prescription</h2>
+    <form (ngSubmit)="addPrescription()">
+      <div class="form-group">
+        <label for="patientId">Patient ID:</label>
+        <input type="text" id="patientId" [(ngModel)]="patientId" name="patientId" placeholder="Enter patient ID" required />
+      </div>
+      <div class="form-group">
+        <label for="diagnosis">Diagnosis:</label>
+        <input type="text" id="diagnosis" [(ngModel)]="diagnosis" name="diagnosis" placeholder="Enter diagnosis" required />
+      </div>
+      <div class="form-group">
+        <label for="treatment">Treatment:</label>
+        <input type="text" id="treatment" [(ngModel)]="treatment" name="treatment" placeholder="Enter treatment" required />
+      </div>
+      <div class="form-group">
+        <label for="dateOfVisit">Date of Visit:</label>
+        <input type="date" id="dateOfVisit" [(ngModel)]="dateOfVisit" name="dateOfVisit" required />
+      </div>
+      <button type="submit" class="btn btn-success">Add Prescription</button>
+    </form>
+  
+    <h3>Prescriptions</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Patient ID</th>
+          <th>Diagnosis</th>
+          <th>Treatment</th>
+          <th>Date of Visit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let prescription of prescriptions">
+          <td>{{ prescription.patientId }}</td>
+          <td>{{ prescription.diagnosis }}</td>
+          <td>{{ prescription.treatment }}</td>
+          <td>{{ prescription.dateOfVisit }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

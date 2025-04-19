@@ -35,6 +35,7 @@ public class SecurityConfig {
 //				.requestMatchers("/api/hospital/doctors/**","/api/hospital/doctors/create/**","/api/hospital/patients/findall","/api/hospital/history/save").hasRole("DOCTOR")
 //				.requestMatchers("/api/register/**").permitAll()
 //				.anyRequest().authenticated()
+				.requestMatchers("/api/hospital/patients/get/**").authenticated()
 				.anyRequest().permitAll()
 				).formLogin(withDefaults())
 				.httpBasic(withDefaults())

@@ -10,6 +10,8 @@ import { PatientComponent } from './patient/patient.component';
 import { BookAppointmentComponent } from './book-appointment/book-appointment.component';
 import { MedicalHistoryComponent } from './medical-history/medical-history.component';
 import { DoctorComponent } from './doctor/doctor.component';
+import { PrescriptionComponent } from './prescription/prescription.component';
+import { NotificationComponent } from './notification/notifications.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { DoctorComponent } from './doctor/doctor.component';
     PatientComponent,
     BookAppointmentComponent,
     MedicalHistoryComponent,
-    DoctorComponent
+    DoctorComponent,
+    PrescriptionComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import axios from 'axios';
 
 @Component({
   selector: 'app-patient',
@@ -8,7 +9,33 @@ import { Router } from '@angular/router';
   styleUrls: ['./patient.component.css']
 })
 export class PatientComponent {
+  patientName: string = '';
+
   constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    this.fetchPatientDetails();
+  }
+
+  // Fetch patient details from the backend
+  async fetchPatientDetails() {
+    const patientId = localStorage.getItem('userId'); // Retrieve the patient ID from localStorage
+    if (!patientId) {
+      alert('User not logged in. Please log in again.');
+      this.router.navigate(['/login']);
+      return;
+    }
+    try {
+      // Call the backend API to fetch patient details
+      const response = await axios.get(`http://localhost:8080/api/hospital/patients/${patientId}`);
+      this.patientName = response.data.name; // Assign the patient's name
+    } catch (error) {
+      console.error('Error fetching patient details:', error);
+      alert('Failed to fetch patient details. Please try again later.');
+    }
+  }
+
+  
 
   onBookAppointment() {
     // Navigate to the book appointment page
@@ -23,6 +50,11 @@ export class PatientComponent {
   onLogout() {
     // Navigate to the login page
     this.router.navigate(['/login']);
+  }
+
+  onNotifications() {
+    // Navigate to the notifications page
+    this.router.navigate(['/notifications']);
   }
 
   onAbout() {

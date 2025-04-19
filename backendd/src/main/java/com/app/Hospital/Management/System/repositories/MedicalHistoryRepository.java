@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.app.Hospital.Management.System.entities.MedicalHistory;
 @Repository
 public interface MedicalHistoryRepository extends JpaRepository<MedicalHistory, Long> {
-	@Query("select m from MedicalHistory m where m.patient IN (select p from PatientProfile p where p.patientId= :patientID)")
+	@Query("select m from MedicalHistory m where m.patient IN (select p from PatientProfile p where p.patientId= :patientId)")
     List<MedicalHistory> findByPatientId(@Param("patientId") Long patientID);
 
 }

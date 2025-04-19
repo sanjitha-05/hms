@@ -1,7 +1,5 @@
 package com.app.Hospital.Management.System.Controllers;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.app.Hospital.Management.System.Services.NotificationService;
 import com.app.Hospital.Management.System.entities.Notification;
 import com.app.Hospital.Management.System.exceptions.BadRequestException;
@@ -31,6 +29,49 @@ public class NotificationController {
         } catch (Exception e) {
         	throw new ServiceUnavailableException("Failed to create notification: " + e.getMessage());        }
     }
+
+     @PostMapping("/create/patient/{appointmentID}")
+    public ResponseEntity<String> createPatientNotification(@PathVariable Long appointmentID) {
+        try {
+            service.createPatientNotification(appointmentID);
+            return new ResponseEntity<>("Patient notification created successfully.", HttpStatus.CREATED);
+        } catch (Exception e) {
+            throw new ServiceUnavailableException("Failed to create patient notification: " + e.getMessage());
+        }
+    }
+    @PostMapping("/create/doctor/{appointmentID}")
+    public ResponseEntity<String> createDoctorNotification(@PathVariable Long appointmentID) {
+        try {
+            service.createDoctorNotification(appointmentID);
+            return new ResponseEntity<>("Doctor notification created successfully.", HttpStatus.CREATED);
+        } catch (Exception e) {
+            throw new ServiceUnavailableException("Failed to create doctor notification: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/patient/{patientId}")
+    public ResponseEntity<List<Notification>> getNotificationsByPatientId(@PathVariable Long patientId) {
+        List<Notification> notifications = service.getNotificationsByPatientId(patientId);
+        if (notifications.isEmpty()) {
+            throw new ResourceNotFoundException("No notifications found for patient ID: " + patientId);
+        }
+        return new ResponseEntity<>(notifications, HttpStatus.OK);
+    }
+
+    // Endpoint to get notifications for a specific doctor
+    @GetMapping("/doctor/{doctorId}")
+    public ResponseEntity<List<Notification>> getNotificationsByDoctorId(@PathVariable Long doctorId) {
+        List<Notification> notifications = service.getNotificationsByDoctorId(doctorId);
+        if (notifications.isEmpty()) {
+            throw new ResourceNotFoundException("No notifications found for doctor ID: " + doctorId);
+        }
+        return new ResponseEntity<>(notifications, HttpStatus.OK);
+    }
+
+    // Endpoint to create a notification for the doctor
+    
+   
+
 
     @GetMapping
     public ResponseEntity<List<Notification>> getAllNotifications() {
