@@ -1,0 +1,42 @@
+<div class="medical-history-section">
+  <h3>Medical History</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Date of Visit</th>
+        <th>Patient Name</th>
+        <th>Diagnosis</th>
+        <th>Treatment</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let record of medicalHistory">
+        <td>{{ record.dateOfVisit }}</td>
+        <td>{{ record.patientName }}</td>
+        <td>{{ record.diagnosis }}</td>
+        <td>{{ record.treatment }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Add Medical History</h3>
+  <form (ngSubmit)="addMedicalHistory()">
+    <div class="form-group">
+      <label for="patientName">Patient Name:</label>
+      <input type="text" id="patientName" [(ngModel)]="patientName" name="patientName" placeholder="Enter patient name" required />
+    </div>
+    <div class="form-group">
+      <label for="diagnosis">Diagnosis:</label>
+      <input type="text" id="diagnosis" [(ngModel)]="diagnosis" name="diagnosis" placeholder="Enter diagnosis" required />
+    </div>
+    <div class="form-group">
+      <label for="treatment">Treatment:</label>
+      <input type="text" id="treatment" [(ngModel)]="treatment" name="treatment" placeholder="Enter treatment" required />
+    </div>
+    <div class="form-group">
+      <label for="dateOfVisit">Date of Visit:</label>
+      <input type="date" id="dateOfVisit" [(ngModel)]="dateOfVisit" name="dateOfVisit" required />
+    </div>
+    <button type="submit" class="btn btn-success">Add Medical History</button>
+  </form>
+</div>

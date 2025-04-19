@@ -1,0 +1,27 @@
+<div class="appointment-container">
+    <h2>Book an Appointment</h2>
+    <form (ngSubmit)="onBookAppointment()">
+      <div class="form-group">
+        <label for="doctor">Doctor Name:</label>
+        <select id="doctor" [(ngModel)]="selectedDoctorId" name="doctor" (change)="onDoctorChange()" required>
+          <option *ngFor="let doctor of doctors" [value]="doctor.doctorId">{{ doctor.name }}</option>
+        </select>
+      </div>
+  
+      <div class="form-group">
+        <label for="date">Available Dates:</label>
+        <select id="date" [(ngModel)]="selectedDate" name="date" (change)="onDateChange()" required>
+          <option *ngFor="let date of availableDates" [value]="date">{{ date }}</option>
+        </select>
+      </div>
+  
+      <div class="form-group">
+        <label for="time">Available Time Slots:</label>
+        <select id="time" [(ngModel)]="selectedTime" name="time" required>
+          <option *ngFor="let timeSlot of availableTimeSlots" [value]="timeSlot.timeSlot">{{ timeSlot.timeSlot }}</option>
+        </select>
+      </div>
+  
+      <button type="submit" class="btn btn-primary">Book Appointment</button>
+    </form>
+  </div>

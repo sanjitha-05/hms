@@ -1,0 +1,22 @@
+<div class="login-container">
+    <h2>Save Patient</h2>
+    <form (ngSubmit)="onLogin()">
+      <div class="form-group">
+        <label for="patientId">Patient ID:</label>
+        <input type="number" id="patientId" [(ngModel)]="patientId" name="patientId" placeholder="Enter your Patient ID" required>
+      </div>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" [(ngModel)]="name" name="name" placeholder="Enter your name" required>
+      </div>
+      <div class="form-group">
+        <label for="dateOfBirth">Date of Birth:</label>
+        <input type="date" id="dateOfBirth" [(ngModel)]="dateOfBirth" name="dateOfBirth" required>
+      </div>
+      <div class="form-group">
+        <label for="contactDetails">Contact Details:</label>
+        <input type="text" id="contactDetails" [(ngModel)]="contactDetails" name="contactDetails" placeholder="Enter your contact number" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+  </div>
