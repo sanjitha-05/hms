@@ -39,6 +39,7 @@ export class DoctorComponent {
       this.upcomingAppointments = response.data.map((appointment: any) => ({
         date: appointment.doctor.date, // Extract the date from the doctor object
         time: appointment.appointmentTime, // Extract the appointment time
+        patientId:appointment.patient.patientId,
         patientName: appointment.patient.name, // Extract the patient name
         status: appointment.status // Extract the appointment status
       })); // Assign fetched appointments to the array

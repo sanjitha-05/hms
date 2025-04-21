@@ -12,6 +12,10 @@ import { MedicalHistoryComponent } from './medical-history/medical-history.compo
 import { DoctorComponent } from './doctor/doctor.component';
 import { PrescriptionComponent } from './prescription/prescription.component';
 import { NotificationComponent } from './notification/notifications.component';
+import { CtaSectionComponent } from './homefeatures/cta-section/cta-section.component';
+import { FeaturesSectionComponent } from './homefeatures/features-section/features-section.component';
+import { HeroSectionComponent } from './homefeatures/hero-section/hero-section.component';
+import { MyAppointmentsComponent } from './my-appointments/my-appointments.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,11 @@ import { NotificationComponent } from './notification/notifications.component';
     MedicalHistoryComponent,
     DoctorComponent,
     PrescriptionComponent,
-    NotificationComponent
+    NotificationComponent,
+    CtaSectionComponent,
+    FeaturesSectionComponent,
+    HeroSectionComponent,
+    MyAppointmentsComponent
   ],
   imports: [
     BrowserModule,

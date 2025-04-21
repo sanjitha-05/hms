@@ -1,0 +1,36 @@
+<div class="appointments-container">
+    <h2>My Appointments</h2>
+  
+    <!-- Appointments Table -->
+    <div *ngIf="appointments.length > 0" class="appointments-section">
+      <table>
+        <thead>
+          <tr>
+       
+            <th>Date</th>
+            <th>Time</th>
+            <th>Doctor</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let appointment of appointments">
+           
+            <td>{{ appointment.doctor.date }}</td>
+            <td>{{ appointment.appointmentTime }}</td>
+            <td>{{ appointment.doctor.name }}</td>
+            <td>{{ appointment.status }}</td>
+            <td>
+              <button class="btn btn-secondary" (click)="onReschedule(appointment.id)">Reschedule</button>
+              <button class="btn btn-danger" (click)="onCancel(appointment.id)">Cancel</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div *ngIf="appointments.length === 0">
+      <p>No appointments found.</p>
+    </div>
+  </div>

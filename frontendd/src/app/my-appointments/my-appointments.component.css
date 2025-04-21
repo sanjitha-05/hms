@@ -1,0 +1,56 @@
+.appointments-container {
+    width: 90%;
+    margin: 20px auto;
+    text-align: center;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+  }
+  
+  button.btn-secondary:hover {
+    background-color: #5a6268;
+  }
+  
+  button.btn-danger {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  button.btn-danger:hover {
+    background-color: #c82333;
+  }

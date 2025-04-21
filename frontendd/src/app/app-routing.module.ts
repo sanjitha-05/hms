@@ -8,6 +8,8 @@ import { BookAppointmentComponent } from './book-appointment/book-appointment.co
 import { MedicalHistoryComponent } from './medical-history/medical-history.component';
 import { DoctorComponent } from './doctor/doctor.component';
 import { NotificationComponent } from './notification/notifications.component';
+import { MyAppointmentsComponent } from './my-appointments/my-appointments.component';
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent }, // Default route
@@ -17,7 +19,9 @@ const routes: Routes = [
   { path: 'book-appointment', component: BookAppointmentComponent },
   { path: 'medical-history', component: MedicalHistoryComponent },
   { path: 'doctor', component: DoctorComponent },
-  { path: 'notifications', component: NotificationComponent }
+  { path: 'notifications', component: NotificationComponent },
+  { path: 'my-appointments', component: MyAppointmentsComponent },
+
   // { path: '', redirectTo: '/patient', pathMatch: 'full' }
 ];
 

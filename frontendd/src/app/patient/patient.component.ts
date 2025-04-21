@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import axios from 'axios';
 
+
 @Component({
   selector: 'app-patient',
   standalone:false,
@@ -45,6 +46,11 @@ export class PatientComponent {
   onViewMedicalHistory() {
     // Navigate to the medical history page
     this.router.navigate(['/medical-history']);
+  }
+
+  onViewAppointments() {
+    // Navigate to the My Appointments page
+    this.router.navigate(['/my-appointments']);
   }
 
   onLogout() {

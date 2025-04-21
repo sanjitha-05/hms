@@ -1,0 +1,44 @@
+<section class="features-section section">
+    <div class="container">
+      <h2 class="section-title text-center">Streamlined Healthcare Management</h2>
+      <p class="section-subtitle text-center">Our comprehensive system simplifies healthcare delivery and patient experience</p>
+      
+      <div class="features-grid">
+        <div class="feature-card card" *ngFor="let feature of features; let i = index" [ngClass]="'slide-up'" [style.animation-delay]="i * 0.1 + 's'">
+          <div class="feature-icon">{{ feature.icon }}</div>
+          <h3 class="feature-title">{{ feature.title }}</h3>
+          <p class="feature-description">{{ feature.description }}</p>
+        </div>
+      </div>
+      
+      <div class="features-image-container">
+        <div class="features-image">
+          <!-- Placeholder image URL, replace with your actual image -->
+          <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1200&auto=format&fit=crop" alt="Hospital Management System Interface" class="rounded-image">
+        </div>
+        <div class="features-content">
+          <h3>All-in-One Healthcare Platform</h3>
+          <p>Our integrated system connects patients, doctors, and administrators in one seamless platform, improving communication and care coordination.</p>
+          <ul class="features-list">
+            <li>
+              <div class="check-icon">✓</div>
+              <span>Patient registration and profile management</span>
+            </li>
+            <li>
+              <div class="check-icon">✓</div>
+              <span>Real-time appointment scheduling</span>
+            </li>
+            <li>
+              <div class="check-icon">✓</div>
+              <span>Comprehensive medical history records</span>
+            </li>
+            <li>
+              <div class="check-icon">✓</div>
+              <span>Automated reminders and notifications</span>
+            </li>
+          </ul>
+          <a href="/features" class="btn btn-primary">Explore All Features</a>
+        </div>
+      </div>
+    </div>
+  </section>

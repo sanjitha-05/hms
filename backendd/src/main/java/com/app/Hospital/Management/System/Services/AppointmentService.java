@@ -81,57 +81,18 @@ public class AppointmentService {
         return appointmentRepository.save(appointment);
     }
     
-//    public Appointment updateAppointment(Long id, Appointment appointmentDetails) {
-//        Appointment appointment = appointmentRepository.findById(id).orElseThrow(() -> new RuntimeException("Appointment not found"));
-//        appointment.setPatientID(appointmentDetails.getPatientID());
-//        appointment.setDoctorID(appointmentDetails.getDoctorID());
-//        appointment.setAppointmentDate(appointmentDetails.getAppointmentDate());
-//        appointment.setStatus(appointmentDetails.getStatus());
-//        return appointmentRepository.save(appointment);
-//    }
-    
+
     public List<Appointment> getAppointmentsByStatus(String status) {
     	 AppointmentStatus appointmentStatus = AppointmentStatus.valueOf(status.toUpperCase());
     	    return appointmentRepository.findByStatus(appointmentStatus);
        // return appointmentRepository.findByStatus(status);
     }
     
+    public List<Appointment> getAppointmentsByPatientId(Long patientId) {
+        return appointmentRepository.findByPatientId(patientId);
+    }
     
-    // public String bookAppointment(Appointment appointment) {
-    	
-    //     Long doctorId = appointment.getDoctor().getDoctorId();
-    //     LocalDate date = appointment.getDoctor().getDate();
-    //     LocalTime timeSlot = appointment.getAppointmentTime();
-
-        
-    //     Optional<DoctorSchedule> optionalSchedule = doctorScheduleRepository.findById(new ScheduledId(doctorId, date));
-    //     if (optionalSchedule.isPresent()) {
-    //         DoctorSchedule schedule = optionalSchedule.get();
-    //         for (TimeSlot slot : schedule.getAvailableTimeSlots()) {
-    //             if (slot.getTimeSlot().equals(timeSlot) && !slot.isBlocked()) {
-    //                 slot.setBlocked(true);
-    //                 doctorScheduleRepository.save(schedule);
-
-    //                 // Save the appointment
-    //                 appointmentRepository.save(appointment);
-
-    //                 // Check if all slots are booked
-    //                 boolean allSlotsBooked = schedule.getAvailableTimeSlots().stream().allMatch(TimeSlot::isBlocked);
-    //                 if (allSlotsBooked) {
-    //                     doctorScheduleRepository.delete(schedule);
-    //                 }
-                    
-    //                 notificationService.createPatientNotification(appointment.getAppointmentId());
-    //                 notificationService.createDoctorNotification(appointment.getAppointmentId());
-
-    //                 return "Appointment booked successfully.";
-    //             }
-    //         }
-    //         return "Time slot not available.";
-    //     }
-    //     return "Doctor schedule not found.";
-    // }
-
+ 
     public String bookAppointment(Appointment appointment) {
         System.out.println(appointment.toString());
         Long doctorId = appointment.getDoctor().getDoctorId();
@@ -232,36 +193,9 @@ public class AppointmentService {
                 return;
             }
         }
-        // If the time slot does not exist, create a new one
-//        TimeSlot newSlot = new TimeSlot(time, isBlocked);
-//        timeSlots.add(newSlot);
-//        doctorScheduleRepository.save(schedule);
+       
     }
     
 }
     
-    
-//    public String bookAppointment(Long patientId,Long doctorId, LocalDate date, LocalTime timeSlot) {
-//        Optional<DoctorSchedule> optionalSchedule =repo.findById(new ScheduledId(doctorId, date));
-//        Optional<PatientProfile> optionalpat= pat.findById(patientId);
-//        if (optionalSchedule.isPresent()) {
-//            DoctorSchedule schedule = optionalSchedule.get();
-//            for (TimeSlot slot : schedule.getAvailableTimeSlots()) {
-//                if (slot.getTimeSlot().equals(timeSlot) && !slot.isBlocked()) {
-//                    slot.setBlocked(true);
-//                    repo.save(schedule);
-//                    
-//                    // Check if all slots are booked
-//                    boolean allSlotsBooked = schedule.getAvailableTimeSlots().stream().allMatch(TimeSlot::isBlocked);
-//                    if (allSlotsBooked) {
-//                    	repo.delete(schedule);
-//                    }
-//                    
-//                    return "Appointment booked successfully.";
-//                }
-//            }
-//            return "Time slot not available.";
-//        }
-//        return "Doctor schedule not found.";
-//    }
-
+ 

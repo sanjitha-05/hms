@@ -75,6 +75,12 @@ public class AppointmentController {
             throw new ResourceNotFoundException("Appointment not found with id: " + id);
         }
     }
+
+    @GetMapping("/patient/{patientId}")
+    public ResponseEntity<List<Appointment>> getAppointmentsByPatientId(@PathVariable Long patientId) {
+        List<Appointment> appointments = appointmentService.getAppointmentsByPatientId(patientId);
+        return ResponseEntity.ok(appointments);
+    }
     
     @GetMapping("/getbydoctor/{id}")
     public ResponseEntity<List<Appointment>> getAppointmentByDoctorId(@PathVariable Long id) {

@@ -1,29 +1,100 @@
-<div class="home-container">
-    <h1>Welcome to Hospital Management System</h1>
-    <p>Your one-stop solution for managing hospital appointments and records.</p>
+   <div class="home-page">
+    <header class="header">
+      <nav class="navbar">
+        <div class="navbar-left">
+          <img src="/assets/logo.png" alt="Hospital Logo" class="logo" />
+          <h1>Hospital Management System</h1>
+        </div>
+        <div class="navbar-right">
+          <a (click)="onLogin()">Login</a>
+          <a (click)="onRegister()">Register</a>
+          <a href="#about">About Us</a>
+          <a href="#help">Help</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+    </header>
   
-    <div class="button-container">
-      
-      <button class="btn btn-secondary" (click)="onRegister()">Register</button>
+ 
+    <!-- <div class="hero-section">
+      <div class="hero-overlay">
+        <div class="hero-text">
+          <h2>Welcome to the Future of Healthcare</h2>
+          <p>Streamline your hospital operations and provide seamless care for your patients.</p>
+          <button class="btn btn-primary" (click)="onLogin()">Get Started</button>
+        </div>
+      </div>
     </div>
-  
-    <div class="info-section">
+     -->
+
+     <div class="hero-section">
+      <img src="assets/hero-background.jpg" alt="Hero Background" class="hero-image" />
+      <div class="hero-overlay">
+        <div class="hero-text">
+          <h2>Welcome to the Future of Healthcare</h2>
+          <p>Streamline your hospital operations and provide seamless care for your patients.</p>
+          <button class="btn btn-primary" (click)="onRegister()">Get Started</button>
+        </div>
+      </div>
+    </div>
+
+    <section id="about" class="about-section">
       <h2>About Us</h2>
       <p>
-        Our Hospital Management System is designed to streamline hospital operations, 
-        manage appointments, and provide a seamless experience for patients and staff.
+        Our Hospital Management System is designed to simplify hospital operations, manage appointments, and provide a seamless experience for patients and staff. With cutting-edge technology, we aim to improve healthcare delivery and operational efficiency.
       </p>
+      <ul>
+        <li>Efficient appointment scheduling</li>
+        <li>Comprehensive patient management</li>
+        <li>Streamlined doctor availability</li>
+        <li>Secure and reliable data management</li>
+      </ul>
+    </section>
   
+  
+    <section id="help" class="help-section">
       <h2>Help</h2>
       <p>
-        Need assistance? Visit our FAQ section or contact our support team for help with 
-        using the system.
+        Need assistance? Here are some resources to help you get started:
       </p>
-  
-      <h2>Support</h2>
+      <ul>
+        <li><strong>FAQs:</strong> Find answers to common questions about using the system.</li>
+        <li><strong>User Guide:</strong> Step-by-step instructions for navigating the platform.</li>
+        <li><strong>Support Team:</strong> Contact our support team for personalized assistance.</li>
+      </ul>
       <p>
-        For technical support, please email us at supporthospital.com
-        or call us at +1-800-123-4567.
+        For further help, feel free to reach out to our support team using the contact information below.
       </p>
-    </div>
+    </section>
+  
+
+    <section id="contact" class="contact-section">
+      <h2>Contact Us</h2>
+      <p>
+        We’re here to help! Reach out to us through any of the following channels:
+      </p>
+      <ul>
+        <li><strong>Email:</strong> support&#64;hospital.com</li>
+        <li><strong>Phone:</strong> +1-800-123-4567</li>
+        <li><strong>Address:</strong> 123 Healthcare Lane, Wellness City, USA</li>
+      </ul>
+      <p>
+        Follow us on social media for updates and news:
+      </p>
+      <div class="social-icons">
+        <a href="#"><img src="/assets/facebook-icon.png" alt="Facebook" /></a>
+        <a href="#"><img src="/assets/twitter-icon.png" alt="Twitter" /></a>
+        <a href="#"><img src="/assets/linkedin-icon.png" alt="LinkedIn" /></a>
+      </div>
+    </section>
+  
+    <footer class="footer">
+      <p>&copy; 2025 Hospital Management System. All rights reserved.</p>
+    </footer>
   </div>
+
+  <!-- <div class="home-page">
+    <app-hero-section></app-hero-section>
+    <app-features-section></app-features-section>
+    <app-cta-section></app-cta-section>
+  </div> -->

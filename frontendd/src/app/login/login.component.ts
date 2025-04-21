@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   // Form data
-  patientId: number | null = null;
+  
   name: string = '';
   dateOfBirth: string = '';
   contactDetails: string = '';
@@ -18,8 +18,15 @@ export class LoginComponent {
 
   // Handle form submission
   async onLogin() {
+
+
+    const patientId = localStorage.getItem('userId');
+    if (!patientId) {
+      alert('Patient ID not found in localStorage. Please log in again.');
+      return;
+    }
     const loginData = {
-      patientId: this.patientId,
+      patientId: parseInt(patientId, 10),
       name: this.name,
       dateOfBirth: this.dateOfBirth,
       contactDetails: this.contactDetails
