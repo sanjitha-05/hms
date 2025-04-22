@@ -1,0 +1,48 @@
+ <div class="appointments-container">
+    <h2>Doctor's Appointments</h2>
+ 
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="upcomingAppointments.length > 0" class="appointments-section">
+      <h3>Upcoming Appointments</h3>
+      <div class="cards-container">
+        <div *ngFor="let appointment of upcomingAppointments" class="card">
+          <h4>Appointment Details</h4>
+          <p><strong>Date:</strong> {{ appointment.date }}</p>
+          <p><strong>Time:</strong> {{ appointment.time }}</p>
+          <p><strong>Patient ID:</strong> {{ appointment.patientId }}</p>
+          <p><strong>Patient Name:</strong> {{ appointment.patientName }}</p>
+          <p><strong>Status:</strong> {{ appointment.status }}</p>
+        </div>
+      </div>
+    </div>
+  
+    
+    <div *ngIf="pastAppointments.length > 0" class="appointments-section">
+      <h3>Past Appointments</h3>
+      <div class="cards-container">
+        <div *ngFor="let appointment of pastAppointments" class="card">
+          <h4>Appointment Details</h4>
+          <p><strong>Date:</strong> {{ appointment.date }}</p>
+          <p><strong>Time:</strong> {{ appointment.time }}</p>
+          <p><strong>Patient ID:</strong> {{ appointment.patientId }}</p>
+          <p><strong>Patient Name:</strong> {{ appointment.patientName }}</p>
+          <p><strong>Status:</strong> {{ appointment.status }}</p>
+          <button
+        *ngIf="appointment.status === 'SCHEDULED'"
+        class="btn"
+        (click)="openPrescriptionPopup(appointment)"
+      >
+        Add Prescription
+      </button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- No Appointments Found -->
+    <div *ngIf="pastAppointments.length === 0 && upcomingAppointments.length === 0">
+      <p>No appointments found.</p>
+    </div>
+  </div>

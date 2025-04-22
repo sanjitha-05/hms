@@ -1,8 +1,19 @@
-<div class="notification-section">
-    <h3>Notifications</h3>
-    <ul>
-      <li *ngFor="let notification of patientNotifications">
-        <strong>{{ notification.date }}</strong>: {{ notification.message }}
-      </li>
-    </ul>
+<div class="notifications-container">
+  <h2>{{ userType === 'doctor' ? 'Doctor Notifications' : 'Patient Notifications' }}</h2>
+
+  <!-- No Notifications Message -->
+  <div *ngIf="notifications.length === 0" class="no-notifications">
+    <p>No notifications available.</p>
   </div>
+
+  <!-- Notifications List -->
+  <ul *ngIf="notifications.length > 0" class="notifications-list">
+    <li *ngFor="let notification of (userType === 'doctor' ? doctorNotifications : patientNotifications)" class="notification-item">
+      <div class="notification-header">
+        <strong>{{ notification.title || 'Notification' }}</strong>
+        <span class="notification-date">{{ notification.timeStamp | date: 'medium' }}</span>
+      </div>
+      <p class="notification-message">{{ notification.message }}</p>
+    </li>
+  </ul>
+</div>

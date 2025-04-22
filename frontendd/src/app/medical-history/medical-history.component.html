@@ -1,4 +1,4 @@
-<div class="medical-history-section">
+<!-- <div class="medical-history-section">
   <h3>Medical History</h3>
   <table>
     <thead>
@@ -16,4 +16,22 @@
       </tr>
     </tbody>
   </table>
+</div> -->
+
+<div class="medical-history-container">
+  <h2>Medical History</h2>
+
+  <!-- No Records Message -->
+  <div *ngIf="medicalHistory.length === 0" class="no-records">
+    <p>No medical history records found.</p>
+  </div>
+
+  <!-- Medical History Cards -->
+  <div *ngIf="medicalHistory.length > 0" class="cards-container">
+    <div *ngFor="let record of medicalHistory" class="card">
+      <p><strong>Date of Visit: </strong>{{ record.dateOfVisit  | date: 'yyyy-MM-dd'}}</p>
+      <p><strong>Diagnosis:</strong> {{ record.diagnosis }}</p>
+      <p><strong>Treatment:</strong> {{ record.treatment }}</p>
+    </div>
+  </div>
 </div>

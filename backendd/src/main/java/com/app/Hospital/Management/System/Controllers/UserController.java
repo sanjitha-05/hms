@@ -1,5 +1,6 @@
 package com.app.Hospital.Management.System.Controllers;
 
+import java.util.HashMap;
 import java.util.Optional;
 
 
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,11 +27,15 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 @Validated
 @RestController
-@RequestMapping("/api/register")
+@RequestMapping("/api")
 public class UserController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+	@Autowired
+    private PatientProfileRepository patientProfileRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 	 @Autowired
 	 private JwtUtil jwtUtil;
 	@Autowired
@@ -37,7 +43,7 @@ public class UserController {
 	@Autowired
 	private PatientProfileRepository patientRepo;
 	@Transactional
-	@PostMapping("/")
+	@PostMapping("/register/")
 	public ResponseEntity<?>  register(@Valid @RequestBody User user)
 	{ 
 		if (userRepo.existsByEmail(user.getEmail())) {
@@ -55,7 +61,7 @@ public class UserController {
 		
 	}
 	
-	@PostMapping("/check")
+	@PostMapping("/register/check")
 	public ResponseEntity<?> checkUser(@RequestBody User user) {
 	    Optional<User> foundUser = userRepo.findByEmail(user.getEmail());
 	    if (foundUser.isPresent()) {
@@ -74,6 +80,39 @@ public class UserController {
 	}
 	    return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
 	}
+
+
+
+	@GetMapping("/patient/{patientId}")
+    public ResponseEntity<?> getPatientDetails(@PathVariable Long patientId) {
+        // Fetch the PatientProfile
+        Optional<PatientProfile> patientProfileOptional = patientProfileRepository.findById(patientId);
+
+        if (patientProfileOptional.isPresent()) {
+            PatientProfile patientProfile = patientProfileOptional.get();
+
+            // Fetch the User associated with the PatientProfile
+            Optional<User> userOptional = userRepository.findById(patientId); // Assuming patientId matches userId
+            if (userOptional.isPresent()) {
+                User user = userOptional.get();
+
+                // Combine PatientProfile and User data
+                HashMap<String, Object> response = new HashMap<>();
+                response.put("patientId", patientProfile.getPatientId());
+                response.put("name", patientProfile.getName());
+                response.put("dateOfBirth", patientProfile.getDateOfBirth());
+                response.put("contactDetails", patientProfile.getContactDetails());
+                response.put("email", user.getEmail()); // Add email from User entity
+                response.put("password", user.getPassword()); 
+
+				    return ResponseEntity.ok(response);
+            } else {
+                return new ResponseEntity<>("User not found for the given patient ID", HttpStatus.NOT_FOUND);
+            }
+        } else {
+            return new ResponseEntity<>("Patient not found", HttpStatus.NOT_FOUND);
+        }
+    }
 	
 	
 }

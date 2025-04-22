@@ -21,4 +21,14 @@ export class AppointmentService {
       throw error; // Rethrow the error for the caller to handle
     }
   }
+
+  async cancelAppointment(appointmentId: number): Promise<string> {
+    try {
+      const response = await axios.put(`${this.baseUrl}/${appointmentId}/cancel`);
+      return response.data; // Return the success message
+    } catch (error) {
+      console.error('Error canceling appointment:', error);
+      throw error;
+    }
+  }
 }

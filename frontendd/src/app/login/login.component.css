@@ -1,7 +1,20 @@
+:host {
+  background: linear-gradient(200deg, #e6f7ff, #a9ccdf);
+  min-height: 100vh;
+  background-image: url('../../assets/Signup.jpg');
+   background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
 .login-container {
     width: 400px;
     margin: 50px auto;
     padding: 20px;
+    background-color: white;
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

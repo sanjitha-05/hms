@@ -6,7 +6,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -103,9 +102,11 @@ public class AppointmentController {
     }
 
     @PatchMapping("/put/{id}/status")
-    public ResponseEntity<Appointment> updateAppointmentStatus(@PathVariable Long id, @RequestBody AppointmentStatus newStatus) {
+    public ResponseEntity<Appointment> updateAppointmentStatus(@PathVariable Long id, @RequestBody String newStatus) {
         try {
-            Appointment updatedAppointment = appointmentService.updateAppointmentStatus(id, newStatus);
+
+            AppointmentStatus statusEnum = AppointmentStatus.valueOf(newStatus.toUpperCase());
+            Appointment updatedAppointment = appointmentService.updateAppointmentStatus(id, statusEnum);
             return ResponseEntity.ok(updatedAppointment);
         } catch (Exception e) {
             throw new BadRequestException("Failed to update appointment status: " + e.getMessage());

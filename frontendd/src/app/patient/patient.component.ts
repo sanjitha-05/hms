@@ -28,7 +28,7 @@ export class PatientComponent {
     }
     try {
       // Call the backend API to fetch patient details
-      const response = await axios.get(`http://localhost:8080/api/hospital/patients/${patientId}`);
+      const response = await axios.get(`http://localhost:8080/api/hospital/patients/get/${patientId}`);
       this.patientName = response.data.name; // Assign the patient's name
     } catch (error) {
       console.error('Error fetching patient details:', error);
@@ -39,37 +39,43 @@ export class PatientComponent {
   
 
   onBookAppointment() {
-    // Navigate to the book appointment page
     this.router.navigate(['/book-appointment']);
   }
 
   onViewMedicalHistory() {
-    // Navigate to the medical history page
     this.router.navigate(['/medical-history']);
   }
 
   onViewAppointments() {
-    // Navigate to the My Appointments page
     this.router.navigate(['/my-appointments']);
+  }
+  onViewProfile() {
+    this.router.navigate(['/profile']);
   }
 
   onLogout() {
-    // Navigate to the login page
-    this.router.navigate(['/login']);
+    localStorage.clear();
+    this.router.navigate(['/register']);
   }
 
   onNotifications() {
-    // Navigate to the notifications page
-    this.router.navigate(['/notifications']);
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      alert('User ID not found. Please log in again.');
+      return;
+    }
+  
+    console.log('Navigating to notifications with queryParams:', { userType: 'patient', userId: userId });
+    this.router.navigate(['/notifications'], {
+      queryParams: { userType: 'patient', userId: userId }
+    });
   }
 
   onAbout() {
-    // Navigate to the about page (or display a modal)
     alert('About: This is a Hospital Management System.');
   }
 
   onContact() {
-    // Navigate to the contact page (or display a modal)
     alert('Contact Us: Email us at support@hospital.com or call +1-800-123-4567.');
   }
 }

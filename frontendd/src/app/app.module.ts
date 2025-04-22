@@ -16,6 +16,9 @@ import { CtaSectionComponent } from './homefeatures/cta-section/cta-section.comp
 import { FeaturesSectionComponent } from './homefeatures/features-section/features-section.component';
 import { HeroSectionComponent } from './homefeatures/hero-section/hero-section.component';
 import { MyAppointmentsComponent } from './my-appointments/my-appointments.component';
+import { ProfileComponent } from './profile/profile.component';
+import { DoctorAppointmentsComponent } from './doctor-appointments/doctor-appointments.component';
+import { PrescriptionDialogComponent } from './prescription-dialog/prescription-dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { MyAppointmentsComponent } from './my-appointments/my-appointments.compo
     CtaSectionComponent,
     FeaturesSectionComponent,
     HeroSectionComponent,
-    MyAppointmentsComponent
+    MyAppointmentsComponent,
+    ProfileComponent,
+    DoctorAppointmentsComponent,
+    PrescriptionDialogComponent
   ],
   imports: [
     BrowserModule,

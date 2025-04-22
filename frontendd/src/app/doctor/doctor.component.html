@@ -1,61 +1,15 @@
-<!-- <div class="doctor-container">
-    <h2>Doctor Dashboard</h2>
-  
-    <button class="btn btn-primary" (click)="createAvailability()">Create Availability</button>
-
-   <div class="notifications-section">
-    <h3>Your Notifications</h3>
-    <ul>
-      <li *ngFor="let notification of doctorNotifications">
-        <strong>{{ notification.timeStamp }}</strong>: {{ notification.message }}
-      </li>
-    </ul>
-  </div>
-
-    
-    <div class="appointments-section">
-      <h3>Upcoming Appointments</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Patient ID</th>
-            <th>Patient Name</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let appointment of upcomingAppointments">
-            <td>{{ appointment.date }}</td>
-            <td>{{ appointment.time }}</td>
-            <td>{{ appointment.patientId }}</td>
-            <td>{{ appointment.patientName }}</td>
-            <td>{{ appointment.status }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-   
-   <app-prescription></app-prescription>
-
-  </div> -->
-
-
+<!-- 
   <div class="doctor-container">
     <h2>Doctor Dashboard</h2>
   
-    <!-- Dashboard Sections -->
+    
     <div class="dashboard-sections">
-      <!-- Create Availability Section -->
       <div class="dashboard-card">
         <h3>Create Availability</h3>
         <p>Set your availability for the next 7 days to allow patients to book appointments.</p>
         <button class="btn btn-primary" (click)="createAvailability()">Create Availability</button>
       </div>
   
-      <!-- Notifications Section -->
       <div class="dashboard-card">
         <h3>Your Notifications</h3>
         <ul class="notifications-list">
@@ -65,7 +19,6 @@
         </ul>
       </div>
   
-      <!-- Upcoming Appointments Section -->
       <div class="dashboard-card">
         <h3>Upcoming Appointments</h3>
         <table>
@@ -90,11 +43,42 @@
         </table>
       </div>
   
-      <!-- Prescription Section -->
       <div class="dashboard-card">
         <h3>Manage Prescriptions</h3>
         <p>Add and view prescriptions for your patients.</p>
         <app-prescription></app-prescription>
       </div>
+    </div>
+  </div> -->
+
+  <div class="doctor-container">
+    <h2>Welcome to the Doctor Dashboard</h2>
+    <p>Manage your availability, appointments, and notifications here.</p>
+  
+    <!-- Cards Section -->
+    <div class="cards-container">
+      <!-- Create Availability Card -->
+      <div class="card">
+        <h3>Create Availability</h3>
+        <p>Set your availability for the next 7 days to allow patients to book appointments.</p>
+        <button class="btn btn-primary" (click)="createAvailability()">Create Availability</button>
+      </div>
+  
+      <!-- Upcoming Appointments Card -->
+      <div class="card">
+        <h3>Upcoming Appointments</h3>
+        <p>View and manage your upcoming appointments with patients.</p>
+        <button class="btn btn-primary" (click)="navigateToAppointments()">View Appointments</button>
+      </div>
+  
+      <!-- Notifications Card -->
+      <div class="card">
+        <h3>Your Notifications</h3>
+        <p>Check your latest notifications and updates from the system.</p>
+        <button class="btn btn-primary" (click)="viewNotifications()">View Notifications</button>
+      </div>
+  
+      <!-- Manage Prescriptions Card -->
+      
     </div>
   </div>

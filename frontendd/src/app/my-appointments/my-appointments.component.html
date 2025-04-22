@@ -6,7 +6,7 @@
       <table>
         <thead>
           <tr>
-       
+           
             <th>Date</th>
             <th>Time</th>
             <th>Doctor</th>
@@ -22,8 +22,9 @@
             <td>{{ appointment.doctor.name }}</td>
             <td>{{ appointment.status }}</td>
             <td>
-              <button class="btn btn-secondary" (click)="onReschedule(appointment.id)">Reschedule</button>
-              <button class="btn btn-danger" (click)="onCancel(appointment.id)">Cancel</button>
+              <button class="btn btn-secondary" (click)="onReschedule(appointment.appointmentId)">Reschedule</button>
+              
+              <button class="btn btn-danger" (click)="onCancel(appointment.appointmentId)">Cancel</button>
             </td>
           </tr>
         </tbody>

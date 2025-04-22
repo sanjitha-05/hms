@@ -1,79 +1,4 @@
-/* .doctor-container {
-    width: 80%;
-    margin: 20px auto;
-    text-align: center;
-  }
-  
-  h2 {
-    margin-bottom: 20px;
-  }
-  
-  button {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  button.btn-primary {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  button.btn-primary:hover {
-    background-color: #0056b3;
-  }
-  
-  button.btn-secondary {
-    background-color: #6c757d;
-    color: white;
-  }
-  
-  button.btn-secondary:hover {
-    background-color: #5a6268;
-  }
-  
-  button.btn-success {
-    background-color: #28a745;
-    color: white;
-  }
-  
-  button.btn-success:hover {
-    background-color: #218838;
-  }
-  
-  .appointments-section {
-    margin-top: 30px;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-  }
-  
-  th, td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: left;
-  }
-  
-  th {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  tr:hover {
-    background-color: #f1f1f1;
-  } */
-
-  /* General Container */
+/* 
 .doctor-container {
   width: 90%;
   margin: 20px auto;
@@ -81,14 +6,12 @@
   font-family: Arial, sans-serif;
 }
 
-/* Dashboard Header */
 h2 {
   margin-bottom: 30px;
   font-size: 2rem;
   color: #007bff;
 }
 
-/* Dashboard Sections */
 .dashboard-sections {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -96,7 +19,6 @@ h2 {
   margin-top: 20px;
 }
 
-/* Dashboard Card */
 .dashboard-card {
   background-color: #ffffff;
   border: 1px solid #ddd;
@@ -122,7 +44,6 @@ h2 {
   margin-top: 10px;
 }
 
-/* Notifications List */
 .notifications-list {
   list-style-type: none;
   padding: 0;
@@ -142,7 +63,6 @@ h2 {
   background-color: #f1f1f1;
 }
 
-/* Appointments Table */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -168,7 +88,6 @@ tr:hover {
   background-color: #f1f1f1;
 }
 
-/* Buttons */
 button {
   padding: 10px 20px;
   font-size: 1rem;
@@ -183,5 +102,79 @@ button.btn-primary {
 }
 
 button.btn-primary:hover {
+  background-color: #0056b3;
+} */
+ /* General Container */
+.doctor-container {
+  width: 90%;
+  margin: 20px auto;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+/* Dashboard Header */
+h2 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #007bff;
+}
+
+p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+/* Cards Section */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Individual Card */
+.card {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.card button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.card button.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.card button.btn-primary:hover {
   background-color: #0056b3;
 }

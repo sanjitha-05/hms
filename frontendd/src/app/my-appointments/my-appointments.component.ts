@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AppointmentService } from '../services/appointment.service';
 
 @Component({
@@ -11,8 +12,9 @@ export class MyAppointmentsComponent implements OnInit {
   patientId: number = 0; // Patient ID from localStorage
   appointments: any[] = []; // List of appointments
   errorMessage: string = '';
+  appointmentId:number=0;
 
-  constructor(private appointmentService: AppointmentService) {}
+  constructor(private appointmentService: AppointmentService, private router: Router) {}
 
   ngOnInit(): void {
     // Get patient ID from localStorage
@@ -23,25 +25,45 @@ export class MyAppointmentsComponent implements OnInit {
     }
   }
 
-  // Fetch all appointments for the patient
+  
   async fetchAppointments() {
     try {
       this.appointments = await this.appointmentService.getAppointmentsByPatientId(this.patientId);
+      
     } catch (error) {
       console.error('Error fetching appointments:', error);
       this.errorMessage = 'Failed to fetch appointments. Please try again later.';
     }
   }
 
-  // Placeholder for rescheduling an appointment
-  onReschedule(appointmentId: number) {
-    alert(`Reschedule appointment with ID: ${appointmentId}`);
-    // Add logic to navigate to the reschedule page
+  async onReschedule(appointmentId: number) {
+    const confirmation = confirm('Are you sure you want to reschedule this appointment?');
+    if (confirmation) {
+      try {
+        // Cancel the current appointment
+        const response = await this.appointmentService.cancelAppointment(appointmentId);
+        alert(response);
+
+        // Redirect to the Book Appointment page
+        this.router.navigate(['/book-appointment']);
+      } catch (error) {
+        console.error('Error rescheduling appointment:', error);
+        alert('Failed to reschedule the appointment. Please try again later.');
+      }
+    }
   }
 
-  // Placeholder for canceling an appointment
-  onCancel(appointmentId: number) {
-    alert(`Cancel appointment with ID: ${appointmentId}`);
-    // Add logic to call the cancel appointment API
+  async onCancel(appointmentId: number) {
+    const confirmation = confirm('Are you sure you want to cancel this appointment?');
+    if (confirmation) {
+      try {
+        const response = await this.appointmentService.cancelAppointment(appointmentId);
+        alert(response); 
+        this.fetchAppointments(); 
+      } catch (error) {
+        console.error('Error canceling appointment:', error);
+        alert('Failed to cancel the appointment. Please try again later.');
+      }
+    }
   }
 }

@@ -1,0 +1,17 @@
+<div class="profile-container">
+    <h2>Patient Profile</h2>
+  
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  
+    <!-- Patient Details -->
+    <div *ngIf="!errorMessage" class="profile-details">
+        <p><strong>Patient Id:</strong> {{patientDetails.patientId}} </p>
+      <p><strong>Name:</strong> {{ patientDetails.name }}</p>
+      <p><strong>Date of Birth:</strong> {{ patientDetails.dateOfBirth }}</p>
+      <p><strong>Contact Details:</strong> {{ patientDetails.contactDetails }}</p>
+      <p><strong>Email:</strong> {{ email }}</p>
+    </div>
+  </div>

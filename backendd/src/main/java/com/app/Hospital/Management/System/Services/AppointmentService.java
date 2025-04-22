@@ -15,6 +15,7 @@ import com.app.Hospital.Management.System.entities.DoctorSchedule;
 import com.app.Hospital.Management.System.entities.PatientProfile;
 import com.app.Hospital.Management.System.entities.ScheduledId;
 import com.app.Hospital.Management.System.entities.TimeSlot;
+import com.app.Hospital.Management.System.exceptions.ResourceNotFoundException;
 import com.app.Hospital.Management.System.repositories.AppointmentRepository;
 import com.app.Hospital.Management.System.repositories.DoctorScheduleRepository;
 import com.app.Hospital.Management.System.repositories.PatientProfileRepository;
@@ -33,10 +34,7 @@ public class AppointmentService {
 	@Autowired
 	private NotificationService notificationService;
 	
-//	public Appointment saveAppointment(Appointment appointment) {
-//		System.out.println(appointment);
-//        return appointmentRepository.save(appointment);
-//    }
+
 
     public List<Appointment> getAllAppointments() {
         return appointmentRepository.findAll();
@@ -51,12 +49,15 @@ public class AppointmentService {
     }
     
     public Appointment updateAppointmentStatus(Long id, AppointmentStatus newStatus) {
-        Appointment appointment = appointmentRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Appointment not found"));
+         Optional<Appointment> optionalAppointment = appointmentRepository.findById(id);
+        if (optionalAppointment.isEmpty()) {
+            throw new ResourceNotFoundException("Appointment not found with id: " + id);
+        }
 
-        appointment.setStatus(newStatus);
-
-        return appointmentRepository.save(appointment);
+        Appointment appointment = optionalAppointment.get();
+        appointment.setStatus(newStatus); // Set the new status
+        return appointmentRepository.save(appointment); // Save the updated appointment
+    
     }
     
     

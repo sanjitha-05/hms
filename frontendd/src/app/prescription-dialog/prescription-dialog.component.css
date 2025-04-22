@@ -1,0 +1,120 @@
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+  }
+  
+  input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    box-sizing: border-box;
+  }
+  
+  .dialog-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button.btn-primary {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  button.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+  }
+
+  /* Style for the dialog container */
+.dialog-container {
+    width: 100%;
+    max-width: 600px; /* Set a maximum width for the dialog */
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Style for the dialog header */
+  .dialog-container h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #007bff;
+    margin-bottom: 20px;
+  }
+  
+  /* Style for the form group */
+  .form-group {
+    margin-bottom: 15px;
+    padding: 10px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  /* Style for the dialog actions */
+  .dialog-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .dialog-actions .btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .dialog-actions .btn-primary {
+    background-color: #007bff;
+    color: #ffffff;
+  }
+  
+  .dialog-actions .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  .dialog-actions .btn-secondary {
+    background-color: #6c757d;
+    color: #ffffff;
+  }
+  
+  .dialog-actions .btn-secondary:hover {
+    background-color: #5a6268;
+  }
