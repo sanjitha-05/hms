@@ -132,12 +132,12 @@ import java.util.Arrays;
 public class SecurityConfig {
 
     private final SecurityConfigPatient patientDetails;
-    private final JwtRequestFilter jwtRequestFilter; // Mark as final and inject properly
+    private final JwtRequestFilter jwtRequestFilter;
 
-    // Constructor injection for dependencies
+    
     public SecurityConfig(SecurityConfigPatient patientDetails, JwtRequestFilter jwtRequestFilter) {
         this.patientDetails = patientDetails;
-        this.jwtRequestFilter = jwtRequestFilter; // Properly inject JwtRequestFilter
+        this.jwtRequestFilter = jwtRequestFilter;
     }
 
     @Bean
@@ -146,12 +146,12 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .cors(withDefaults())
             .authorizeHttpRequests(auth -> auth
-                .anyRequest().permitAll() // Allow all requests for now
+                .anyRequest().permitAll()
             )
             .formLogin(withDefaults())
             .httpBasic(withDefaults())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class); // Add JwtRequestFilter
+            .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -159,7 +159,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200")); // Allow Angular frontend
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
         configuration.setExposedHeaders(Arrays.asList("Authorization"));

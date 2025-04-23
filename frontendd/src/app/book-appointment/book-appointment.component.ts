@@ -46,9 +46,15 @@ export class BookAppointmentComponent implements OnInit {
 
     try {
       const response = await axios.get(`http://localhost:8080/api/hospital/doctors/${this.selectedDoctorId}/available-dates`);
-      this.availableDates = response.data; // Assuming the backend returns a list of dates
+      const allDates = response.data; 
+      const currentDate = new Date();
+      const currentDateString = currentDate.toISOString().split('T')[0]; // Get today's date in 'YYYY-MM-DD' format
+
+      this.availableDates = allDates.filter((date: string) => {
+        return date >= currentDateString; // Compare only the date part
+      });
       this.availableTimeSlots = []; // Reset time slots when doctor changes
-      this.selectedDate = ''; // Reset selected date
+      this.selectedDate = ''; 
     } catch (error) {
       console.error('Error fetching available dates:', error);
       alert('Failed to fetch available dates. Please try again later.');
@@ -61,7 +67,30 @@ export class BookAppointmentComponent implements OnInit {
 
     try {
       const response = await axios.get(`http://localhost:8080/api/hospital/doctors/${this.selectedDoctorId}/available-dates/${this.selectedDate}/time-slots`);
-      this.availableTimeSlots = response.data; // Assuming the backend returns a list of time slots
+      const allTimeSlots = response.data; // Assuming the backend returns a list of time slots in 'HH:mm' format
+      console.log('Available Time Slots:', allTimeSlots);
+      const currentDate = new Date();
+      const selectedDate = new Date(this.selectedDate);
+
+      if (selectedDate.toDateString() === currentDate.toDateString()) {
+        const currentTime = currentDate.getHours() * 60 + currentDate.getMinutes(); // Current time in minutes
+  
+        this.availableTimeSlots = allTimeSlots
+          .filter((slot: any) => {
+            const time = slot.timeSlot;
+            if (typeof time !== 'string') {
+              console.error('Invalid time format:', time);
+              return false;
+            }
+  
+            const [hours, minutes] = time.split(':').map(Number);
+            const timeInMinutes = hours * 60 + minutes;
+            return timeInMinutes > currentTime && !slot.blocked;
+          })
+          .map((slot: any) => slot.timeSlot); 
+      } else {
+        this.availableTimeSlots = allTimeSlots;
+      }
     } catch (error) {
       console.error('Error fetching available time slots:', error);
       alert('Failed to fetch available time slots. Please try again later.');

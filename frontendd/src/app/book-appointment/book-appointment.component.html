@@ -18,7 +18,7 @@
       <div class="form-group">
         <label for="time">Available Time Slots:</label>
         <select id="time" [(ngModel)]="selectedTime" name="time" required>
-          <option *ngFor="let timeSlot of availableTimeSlots" [value]="timeSlot.timeSlot">{{ timeSlot.timeSlot }}</option>
+          <option *ngFor="let timeSlot of availableTimeSlots" [value]="timeSlot">{{ timeSlot }}</option>
         </select>
       </div>
   
