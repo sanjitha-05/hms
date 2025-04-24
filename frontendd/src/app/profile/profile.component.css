@@ -1,6 +1,19 @@
+:host {
+  background: linear-gradient(to right, #d1e8ff, #9ACBD0); /* Slightly darker shades of blue */
+  min-height: 100vh;
+  /* background-color: #9ACBD0; */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
 .profile-container {
     width: 50%;
     margin: 20px auto;
+    background-color: white;
     font-family: Arial, sans-serif;
     text-align: left;
     border: 1px solid #ccc;

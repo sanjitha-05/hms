@@ -1,37 +1,15 @@
-/* .medical-history-container {
-    width: 80%;
-    margin: 20px auto;
-    text-align: center;
-  }
-  
-  h2 {
-    margin-bottom: 20px;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-  }
-  
-  th, td {
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: left;
-  }
-  
-  th {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  tr:hover {
-    background-color: #f1f1f1;
-  } */
+:host {
+  background: linear-gradient(to right, #d1e8ff, #9ACBD0); /* Slightly darker shades of blue */
+  min-height: 100vh;
+  /* background-color: #9ACBD0; */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
   .medical-history-container {
     width: 80%;
     margin: 20px auto;

@@ -1,4 +1,15 @@
-
+:host {
+    background: linear-gradient(200deg, #b0e0e6, #6495ed); /* Slightly darker shades of blue */
+    min-height: 100vh;
+    background-color: #4682B4; /* A darker fallback color (Steel Blue) */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+  }
   .appointments-container {
     width: 90%;
     margin: 20px auto;

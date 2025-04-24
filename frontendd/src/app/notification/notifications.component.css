@@ -1,25 +1,18 @@
-/* .notification-section {
-    margin: 20px;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-  }
-  
-  .notification-section h3 {
-    margin-bottom: 15px;
-  }
-  
-  .notification-section ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .notification-section li {
-    margin-bottom: 10px;
-    font-size: 14px;
-  } */
+:host {
+  background: linear-gradient(to right, #d1e8ff, #9ACBD0); /* Slightly darker shades of blue */
+  min-height: 100vh;
+  /* background-color: #9ACBD0; */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
   .notifications-container {
+    background: linear-gradient(to right, #d1e8ff, #9ACBD0); /* Slightly darker shades of blue */
+
     width: 80%;
     margin: 20px auto;
     font-family: Arial, sans-serif;
