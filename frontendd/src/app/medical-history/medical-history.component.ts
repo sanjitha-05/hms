@@ -26,7 +26,15 @@ export class MedicalHistoryComponent {
   }
   async fetchMedicalHistory() {
     try {
-      const response = await axios.get(`http://localhost:8080/api/hospital/history/view/${this.patientId}`);
+      const token=localStorage.getItem('token')
+      const response = await axios.get(`http://localhost:8080/api/hospital/history/view/${this.patientId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add the token to the Authorization header
+            'Content-Type': 'application/json',
+          },
+        }
+      );
       this.medicalHistory = response.data; // Assign the fetched data to the array
     } catch (error) {
       console.error('Error fetching medical history:', error);

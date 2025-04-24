@@ -107,7 +107,8 @@ import java.util.Date;
 public class JwtUtil {
 
 private static final String SECRET = "0F1F2F3F4F5F6F7F8F9FAFBFCFDFEFF0F1F2F3F4F5F6F7F8F9FAFBFCFDFEFF"; // 64 chars = 256 bits
-    private static final SecretKey SECRET_KEY = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET));    private final long EXPIRATION_TIME = 1000 * 60 * 60 * 10;
+    private static final SecretKey SECRET_KEY = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET));
+    private final long EXPIRATION_TIME = 1000 * 60 * 60 * 10;
 
     // private Key getSigningKey() {
     //     byte[] keyBytes = SECRET_KEY.getBytes(StandardCharsets.UTF_8);
@@ -125,7 +126,16 @@ private static final String SECRET = "0F1F2F3F4F5F6F7F8F9FAFBFCFDFEFF0F1F2F3F4F5
     }
 
     public String extractUsername(String token) {
-        return extractAllClaims(token).getSubject();
+        //System.out.println(token);
+        try {
+            Claims claims = extractAllClaims(token);
+           
+            return claims.getSubject();
+        } catch (Exception e) {
+            System.out.println("Error extracting username: " + e.getMessage()); // Debug: Log the error
+            return null;
+        }
+      
     }
 
     public Claims extractAllClaims(String token) {

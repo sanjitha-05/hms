@@ -27,9 +27,16 @@ export class PatientComponent {
       return;
     }
     try {
-      // Call the backend API to fetch patient details
-      const response = await axios.get(`http://localhost:8080/api/hospital/patients/get/${patientId}`);
-      this.patientName = response.data.name; // Assign the patient's name
+      const token=localStorage.getItem('token');
+      const response = await axios.get(`http://localhost:8080/api/hospital/patients/get/${patientId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, 
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      this.patientName = response.data.name;
     } catch (error) {
       console.error('Error fetching patient details:', error);
       alert('Failed to fetch patient details. Please try again later.');

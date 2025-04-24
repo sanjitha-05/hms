@@ -42,7 +42,7 @@ public class DoctorScheduleController {
 	        }
 	}
 	
-	@GetMapping("")
+	@GetMapping("/getall")
 	public ResponseEntity<List<DoctorSchedule>> getAllDoctors(){
 		List<DoctorSchedule> doctors=doctorScheduleService.getAllDoctors();
 		 if (doctors.isEmpty()) {
@@ -50,6 +50,16 @@ public class DoctorScheduleController {
 	        }
 		return ResponseEntity.ok(doctors);
 	}
+
+// 	@GetMapping("/{doctorId}/name")
+// public ResponseEntity<String> getDoctorName(@PathVariable Long doctorId) {
+//     DoctorSchedule doctor = doctorScheduleService.getDoctorById(doctorId);
+//     if (doctor!=null) {
+//         return ResponseEntity.ok(doctor.getName());
+//     } else {
+//         throw new IdNotFoundException("Doctor with ID " + doctorId + " not found");
+//     }
+// }
 	
 	@GetMapping("{doctorId}/available-dates")
 	public ResponseEntity<List<LocalDate>> getAvailableDates(@PathVariable Long doctorId) {
@@ -67,11 +77,6 @@ public class DoctorScheduleController {
 	
 	@PutMapping("/create/{id}")
 	public ResponseEntity<String> createAvailability(@PathVariable Long id, Authentication authentication){
-//		String mail=authentication.getName();
-//		Long id2=userrepo.findByEmail(mail).get().getId();
-//		if(id!=id2) {
-//			throw new UnauthorizedAccessException("Access Denied. Check your credentials and Doctor ID");
-//		}
         try {
         	System.out.println("egduflkwdhfklh");
             String s = doctorScheduleService.createAvailability(id);

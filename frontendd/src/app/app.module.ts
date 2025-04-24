@@ -19,6 +19,9 @@ import { MyAppointmentsComponent } from './my-appointments/my-appointments.compo
 import { ProfileComponent } from './profile/profile.component';
 import { DoctorAppointmentsComponent } from './doctor-appointments/doctor-appointments.component';
 import { PrescriptionDialogComponent } from './prescription-dialog/prescription-dialog.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Required for Toastr
+import { ToastrModule } from 'ngx-toastr'; // Import ToastrModule
+
 
 @NgModule({
   declarations: [
@@ -43,7 +46,13 @@ import { PrescriptionDialogComponent } from './prescription-dialog/prescription-
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule, 
+    ToastrModule.forRoot({ 
+      timeOut: 3000, 
+      positionClass: 'toast-top-right',
+      preventDuplicates: true, 
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

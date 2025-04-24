@@ -44,13 +44,15 @@ public class DoctorScheduleService {
                 .map(DoctorSchedule::getDate) // Extract the date
                 .collect(Collectors.toList());
     }
+
+	// public DoctorSchedule getDoctorById(Long doctorId) {
+    //     return repo.findFirstById(doctorId);
+    // }
 	
 	public List<TimeSlot> getAvailableTimeSlotsForDoctorAndDate(Long doctorId, LocalDate date) {
-        // Fetch the doctor schedule for the given doctorId and date
         DoctorSchedule doctorSchedule = repo.findByDoctorIdAndDate(doctorId, date)
                 .orElseThrow(() -> new ResourceNotFoundException("No schedule found for the doctor on the given date"));
 
-        // Filter and return only the available (non-blocked) time slots
         return doctorSchedule.getAvailableTimeSlots().stream()
                 .filter(timeSlot -> !timeSlot.isBlocked())
                 .toList();

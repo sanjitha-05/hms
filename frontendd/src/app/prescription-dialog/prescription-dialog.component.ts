@@ -29,7 +29,7 @@ export class PrescriptionDialogComponent {
       dateOfVisit: this.data.date
     };
 
-    this.dialogRef.close(prescription); // Pass the prescription data back to the parent component
+    this.dialogRef.close(prescription); 
   }
 
   onCancel(): void {

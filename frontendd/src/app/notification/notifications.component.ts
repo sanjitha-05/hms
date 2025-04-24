@@ -32,26 +32,17 @@ export class NotificationComponent implements OnInit {
     });
   }
 
-  async fetchNotifications() {
-    const userId = localStorage.getItem('userId');  
-  if (!userId) {
-    alert('User not logged in. Please log in again.');
-    return;
-  }
-    try {
-      const response = await axios.get(`http://localhost:8080/api/hospital/notifications/patient/${userId}`);
-      this.notifications = response.data;
-      this.patientNotifications = this.notifications.filter((notification: any) =>
-        notification.message.startsWith('Dear')
-      );
-    } catch (error) {
-      console.error('Error fetching notifications:', error);
-      alert('Failed to fetch notifications. Please try again later.');
-    }
-  }
   async fetchPatientNotifications(userId: string) {
     try {
-      const response = await axios.get(`http://localhost:8080/api/hospital/notifications/patient/${userId}`);
+      const token=localStorage.getItem('token')
+      const response = await axios.get(`http://localhost:8080/api/hospital/notifications/patient/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, 
+            'Content-Type': 'application/json',
+          },
+        }
+      );
       this.notifications = response.data; 
       this.patientNotifications = this.notifications.filter((notification: any) =>
         notification.message.startsWith('Dear')
@@ -63,7 +54,15 @@ export class NotificationComponent implements OnInit {
   }
   async fetchDoctorNotifications(doctorId: number) {
     try {
-      const response = await axios.get(`http://localhost:8080/api/hospital/notifications/doctor/${doctorId}`);
+      const token=localStorage.getItem('token')
+      const response = await axios.get(`http://localhost:8080/api/hospital/notifications/doctor/${doctorId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add the token to the Authorization header
+            'Content-Type': 'application/json',
+          },
+        }
+      );
       this.notifications = response.data; 
       this.doctorNotifications = this.notifications.filter((notification: any) =>
         notification.message.startsWith('Hi')

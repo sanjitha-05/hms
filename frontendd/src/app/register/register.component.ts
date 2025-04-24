@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import axios from 'axios';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr'; 
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,7 @@ export class RegisterComponent {
   email: string = '';
   password: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private toastr: ToastrService) {}
   async onRegister() {
     const registerData = {
       email: this.email,
@@ -49,23 +50,22 @@ export class RegisterComponent {
         const userId = checkResponse.data.userId;
         localStorage.setItem('token', token);
         localStorage.setItem('userId',userId.toString());
-        alert('User already exists. Redirecting to Patient Dashboard...');
+        this.toastr.info('User already exists. Redirecting to Patient Dashboard...', 'Info');
         this.router.navigate(['/patient']);
         return;
       }
     } catch (error) {
       try {
-        console.log("register starting")
+        
         const response = await axios.post('http://localhost:8080/api/register/', registerData);
-        console.log("register complete")
+       
 
         const token = response.data.token; 
         const userId = response.data.userId; 
         localStorage.setItem('token', token);
         localStorage.setItem('userId', userId.toString());
       
-        alert('Registration successful!');
-        console.log('Response:', response.data);
+        this.toastr.success('Registration successful!', 'Success');
         this.router.navigate(['/login']);
       } catch (error) {
         console.error('Error registering user:', error);

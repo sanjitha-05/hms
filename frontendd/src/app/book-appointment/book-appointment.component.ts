@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import axios from 'axios';
+import { Toast } from 'ngx-toastr';
 
 @Component({
   selector: 'app-book-appointment',
@@ -18,14 +19,27 @@ export class BookAppointmentComponent implements OnInit {
 
   ngOnInit() {
     this.fetchDoctors();
+
   }
 
   async fetchDoctors() {
     try {
-      const response = await axios.get('http://localhost:8080/api/hospital/doctors');
-      const allDoctors = response.data; // Assuming the backend returns a list of doctor objects
+      const token = localStorage.getItem('token'); 
+      console.log('JWT Token:', token);
+      const response = await axios.get('http://localhost:8080/api/hospital/doctors/getall',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json', 
+          },
+        }
+      );
+      console.log('Doctors Response:', response.data); 
+      
+
+      const allDoctors = response.data; 
   
-      // Use a Set to filter out duplicate doctor names
+      
       const uniqueDoctorsMap = new Map();
       allDoctors.forEach((doctor: any) => {
         if (!uniqueDoctorsMap.has(doctor.doctorId)) {
@@ -40,12 +54,20 @@ export class BookAppointmentComponent implements OnInit {
     }
   }
 
-  // Fetch available dates for the selected doctor
+ 
   async onDoctorChange() {
     if (!this.selectedDoctorId) return;
 
     try {
-      const response = await axios.get(`http://localhost:8080/api/hospital/doctors/${this.selectedDoctorId}/available-dates`);
+      const token = localStorage.getItem('token'); // Retrieve the JWT token from localStorage
+
+      const response = await axios.get(`http://localhost:8080/api/hospital/doctors/${this.selectedDoctorId}/available-dates`,{
+        headers: {
+          Authorization: `Bearer ${token}`, // Add the token to the Authorization header
+          'Content-Type': 'application/json',
+        },
+      }); // Retrieve the JWT token from localStorage
+
       const allDates = response.data; 
       const currentDate = new Date();
       const currentDateString = currentDate.toISOString().split('T')[0]; // Get today's date in 'YYYY-MM-DD' format
@@ -61,12 +83,21 @@ export class BookAppointmentComponent implements OnInit {
     }
   }
 
-  // Fetch available time slots for the selected date
+  
   async onDateChange() {
     if (!this.selectedDate || !this.selectedDoctorId) return;
 
     try {
-      const response = await axios.get(`http://localhost:8080/api/hospital/doctors/${this.selectedDoctorId}/available-dates/${this.selectedDate}/time-slots`);
+      const token = localStorage.getItem('token'); // Retrieve the JWT token from localStorage
+
+      const response = await axios.get(`http://localhost:8080/api/hospital/doctors/${this.selectedDoctorId}/available-dates/${this.selectedDate}/time-slots`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add the token to the Authorization header
+            'Content-Type': 'application/json',
+          },
+        }
+      );
       const allTimeSlots = response.data; // Assuming the backend returns a list of time slots in 'HH:mm' format
       console.log('Available Time Slots:', allTimeSlots);
       const currentDate = new Date();
@@ -120,7 +151,16 @@ export class BookAppointmentComponent implements OnInit {
       };
 
       try {
-        const response = await axios.post('http://localhost:8080/api/hospital/appointments/book', appointmentData);
+        const token = localStorage.getItem('token'); // Retrieve the JWT token from localStorage
+
+        const response = await axios.post('http://localhost:8080/api/hospital/appointments/book', appointmentData,{
+          headers:{
+            Authorization:`Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+       // this.toastr.success('Appointment booked successfully!', 'Success'); // Replace alert with a toast message
+
         alert('Appointment booked successfully!');
         console.log('Appointment response:', response.data);
       } catch (error) {

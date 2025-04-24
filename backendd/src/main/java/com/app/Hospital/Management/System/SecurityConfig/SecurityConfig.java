@@ -146,7 +146,11 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .cors(withDefaults())
             .authorizeHttpRequests(auth -> auth
-                .anyRequest().permitAll()
+			//.requestMatchers("/api/hospital/patients/put/**","/api/hospital/patients/get/**","/api/hospital/patients/del/**","/api/hospital/appointments/**").hasRole("PATIENT")
+			//.requestMatchers("/api/hospital/doctors/**","/api/hospital/doctors/create/**","/api/hospital/patients/findall","/api/hospital/history/save").hasRole("DOCTOR")
+			.requestMatchers("/api/register/","/api/register/check").permitAll()
+			.anyRequest().authenticated()
+
             )
             .formLogin(withDefaults())
             .httpBasic(withDefaults())

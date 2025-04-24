@@ -9,15 +9,14 @@ import { AppointmentService } from '../services/appointment.service';
   styleUrls: ['./my-appointments.component.css']
 })
 export class MyAppointmentsComponent implements OnInit {
-  patientId: number = 0; // Patient ID from localStorage
-  appointments: any[] = []; // List of appointments
+  patientId: number = 0;
+  appointments: any[] = [];
   errorMessage: string = '';
   appointmentId:number=0;
 
   constructor(private appointmentService: AppointmentService, private router: Router) {}
 
   ngOnInit(): void {
-    // Get patient ID from localStorage
     const storedPatientId = localStorage.getItem('userId');
     if (storedPatientId) {
       this.patientId = parseInt(storedPatientId, 10);
@@ -40,11 +39,8 @@ export class MyAppointmentsComponent implements OnInit {
     const confirmation = confirm('Are you sure you want to reschedule this appointment?');
     if (confirmation) {
       try {
-        // Cancel the current appointment
         const response = await this.appointmentService.cancelAppointment(appointmentId);
         alert(response);
-
-        // Redirect to the Book Appointment page
         this.router.navigate(['/book-appointment']);
       } catch (error) {
         console.error('Error rescheduling appointment:', error);

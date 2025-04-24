@@ -36,7 +36,15 @@ export class DoctorAppointmentsComponent implements OnInit {
 
   async fetchAppointments() {
     try {
-      const response = await axios.get(`http://localhost:8080/api/hospital/appointments/getbydoctor/${this.doctorId}`);
+      const token=localStorage.getItem('token')
+      const response = await axios.get(`http://localhost:8080/api/hospital/appointments/getbydoctor/${this.doctorId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add the token to the Authorization header
+            'Content-Type': 'application/json',
+          },
+        }
+      );
       const currentDateTime = new Date();
 
       
@@ -52,9 +60,9 @@ export class DoctorAppointmentsComponent implements OnInit {
           status: appointment.status
         };
         if (appointmentDateTime < currentDateTime) {
-          this.pastAppointments.push(appointmentData); // Add to past appointments
+          this.pastAppointments.push(appointmentData);
         } else {
-          this.upcomingAppointments.push(appointmentData); // Add to upcoming appointments
+          this.upcomingAppointments.push(appointmentData);
         }
       });
     } catch (error) {
@@ -75,6 +83,7 @@ export class DoctorAppointmentsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async (result) => {
       if (result) {
         try {
+          const token=localStorage.getItem('token')
           const requestBody = {
             patient: {
               patientId: result.patientId 
@@ -83,13 +92,21 @@ export class DoctorAppointmentsComponent implements OnInit {
             treatment: result.treatment,
             dateOfVisit: `${appointment.date}T${appointment.time}`
           };
-          const response = await axios.post('http://localhost:8080/api/hospital/history/save', requestBody);
+          const response = await axios.post('http://localhost:8080/api/hospital/history/save', requestBody,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+              },
+            }
+          );
           alert('Prescription added successfully!');
           const statusUpdateResponse = await axios.patch(
             `http://localhost:8080/api/hospital/appointments/put/${appointment.appointmentId}/status`,
             'COMPLETED',
             {
               headers: {
+                Authorization: `Bearer ${token}`,
                 'Content-Type': 'text/plain',
               },
             }

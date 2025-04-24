@@ -24,7 +24,7 @@ public interface DoctorScheduleRepository extends JpaRepository<DoctorSchedule, 
 	    @Query("SELECT DISTINCT ds.name FROM DoctorSchedule ds WHERE ds.doctorId = :doctorId")
 	    String findNameByDoctorId(@Param("doctorId") Long doctorId);
 	
-
+	// DoctorSchedule findFirstById(Long id);
 	
 
 }

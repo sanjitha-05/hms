@@ -29,11 +29,17 @@ export class DoctorComponent {
     }
 
     try {
-      const response = await axios.put(`http://localhost:8080/api/hospital/doctors/create/${this.doctorId}`);
+      const token=localStorage.getItem('token')
+      const response = await axios.put(`http://localhost:8080/api/hospital/doctors/create/${this.doctorId}`,{},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
       alert('Availability for the next 7 days has been created successfully!');
-      console.log('Response:', response.data);
     } catch (error) {
-      console.error('Error creating availability:', error);
       alert('Failed to create availability. Please try again later.');
     }
   }
@@ -41,38 +47,6 @@ export class DoctorComponent {
     navigateToAppointments() {
       this.router.navigate(['/doctor-appointments']);
     }
-
-    async fetchNotifications() {
-          if (!this.doctorId) {
-            alert('Doctor ID not found. Please log in again.');
-            return;
-          }
-      
-          try {
-            const response = await axios.get(`http://localhost:8080/api/hospital/notifications/doctor/${this.doctorId}`);
-            
-            this.notifications = response.data;
-      
-            this.doctorNotifications = this.notifications.filter((notification: any) =>
-              notification.message.startsWith('Hi')
-            );          
-          } catch (error) {
-            console.error('Error fetching notifications:', error);
-            alert('Failed to fetch notifications. Please try again later.');
-          }
-        }
-  
-
-        viewNotifications() {
-          if (!this.doctorId) {
-            alert('Doctor ID not found. Please log in again.');
-            return;
-          }
-        
-          this.router.navigate(['/notifications'], {
-            queryParams: { userType: 'doctor', doctorId: this.doctorId }
-          });
-        }
         onLogout() {
           localStorage.clear();
           this.router.navigate(['/register']);
@@ -90,9 +64,5 @@ export class DoctorComponent {
             queryParams: { userType: 'doctor', doctorId: this.doctorId }
           });
         }
-      
 
-  managePrescriptions() {
-    alert('Navigating to the Prescriptions page...');
-  }
 }

@@ -1,5 +1,5 @@
 <div class="doctor-container">
-  <!-- Navigation Bar -->
+
   <nav class="navbar">
     <div class="navbar-left">
       <h2>Hospital Management System</h2>
@@ -11,32 +11,29 @@
     </div>
   </nav>
 
-  <!-- Main Content -->
+
   <div class="main-content">
     <h1>Welcome, Doctor!</h1>
     <p>Manage your availability, appointments, and notifications here.</p>
 
-    <!-- Cards Section -->
     <div class="cards-container">
-      <!-- Create Availability Card -->
+
       <div class="card">
         <h3>Create Availability</h3>
         <p>Set your availability for the next 7 days to allow patients to book appointments.</p>
         <button class="btn btn-primary" (click)="createAvailability()">Create Availability</button>
       </div>
 
-      <!-- View Appointments Card -->
       <div class="card">
         <h3>Upcoming Appointments</h3>
         <p>View and manage your upcoming appointments with patients.</p>
         <button class="btn btn-primary" (click)="navigateToAppointments()">View Appointments</button>
       </div>
 
-      <!-- Notifications Card -->
       <div class="card">
         <h3>Your Notifications</h3>
         <p>Check your latest notifications and updates from the system.</p>
-        <button class="btn btn-primary" (click)="viewNotifications()">View Notifications</button>
+        <button class="btn btn-primary" (click)="onNotifications()">View Notifications</button>
       </div>
     </div>
   </div>
