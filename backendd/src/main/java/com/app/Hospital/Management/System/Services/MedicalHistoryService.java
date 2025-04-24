@@ -15,6 +15,7 @@ public class MedicalHistoryService {
     private MedicalHistoryRepository medicalHistoryRepository;
 
     public MedicalHistory addMedicalHistory(MedicalHistory medicalHistory) {
+        
         return medicalHistoryRepository.save(medicalHistory);
         
     }

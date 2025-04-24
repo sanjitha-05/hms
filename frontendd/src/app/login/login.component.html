@@ -1,19 +1,26 @@
 <div class="login-container">
-    <h2>Save Patient</h2>
-    <form (ngSubmit)="onLogin()">
-      
+  <h2>Save Patient</h2>
+  <form (ngSubmit)="onLogin()" #patientForm="ngForm">
       <div class="form-group">
-        <label for="name">Name:</label>
-        <input type="text" id="name" [(ngModel)]="name" name="name" placeholder="Enter your name" required>
+          <label for="name">Name:</label>
+          <input type="text" id="name" [(ngModel)]="name" name="name" placeholder="Enter your name" required>
+          <div *ngIf="patientForm.controls['name']?.invalid && (patientForm.controls['name']?.dirty || patientForm.controls['name']?.touched)" class="error-message">Name is required.</div>
       </div>
       <div class="form-group">
-        <label for="dateOfBirth">Date of Birth:</label>
-        <input type="date" id="dateOfBirth" [(ngModel)]="dateOfBirth" name="dateOfBirth" required>
+          <label for="dateOfBirth">Date of Birth:</label>
+          <input type="date" id="dateOfBirth" [(ngModel)]="dateOfBirth" name="dateOfBirth" required>
+          <div *ngIf="isFutureDate(dateOfBirth) && patientForm.controls['dateOfBirth']?.valid" class="error-message">Date of Birth cannot be in the future.</div>
+          <div *ngIf="patientForm.controls['dateOfBirth']?.invalid && (patientForm.controls['dateOfBirth']?.dirty || patientForm.controls['dateOfBirth']?.touched) && patientForm.controls['dateOfBirth']?.errors?.['required']" class="error-message">Date of Birth is required.</div>
       </div>
       <div class="form-group">
         <label for="contactDetails">Contact Details:</label>
-        <input type="text" id="contactDetails" [(ngModel)]="contactDetails" name="contactDetails" placeholder="Enter your contact number" required>
-      </div>
-      <button type="submit" class="btn btn-primary">Save</button>
-    </form>
-  </div>
+        <input type="text" id="contactDetails" [(ngModel)]="contactDetails" name="contactDetails" placeholder="Enter your contact number" required pattern="^[6-9]\d{9}$">
+        <div *ngIf="patientForm.controls['contactDetails']?.invalid && (patientForm.controls['contactDetails']?.dirty || patientForm.controls['contactDetails']?.touched)" class="error-message">
+            <div *ngIf="patientForm.controls['contactDetails']?.errors?.['required']">Contact details are required.</div>
+            <!-- <div *ngIf="contactDetails.length !== 10 && contactDetails.length > 0">Contact details must be exactly 10 digits.</div> -->
+            <div *ngIf="patientForm.controls['contactDetails']?.errors?.['pattern'] && contactDetails.length !== 10 && contactDetails.length > 0">Contact details must be 10 digits and start with 6-9.</div>
+        </div>
+    </div>
+      <button type="submit" class="btn btn-primary" [disabled]="patientForm.invalid" [ngClass]="{'disabled-hover': patientForm.invalid}">Save</button>
+  </form>
+</div>

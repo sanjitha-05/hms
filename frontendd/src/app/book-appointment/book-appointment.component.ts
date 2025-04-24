@@ -152,7 +152,7 @@ export class BookAppointmentComponent implements OnInit {
 
       try {
         const token = localStorage.getItem('token'); // Retrieve the JWT token from localStorage
-
+        console.log(appointmentData)
         const response = await axios.post('http://localhost:8080/api/hospital/appointments/book', appointmentData,{
           headers:{
             Authorization:`Bearer ${token}`,

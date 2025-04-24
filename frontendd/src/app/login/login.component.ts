@@ -17,6 +17,16 @@ export class LoginComponent {
   constructor(private router: Router) {}
 
   // Handle form submission
+
+  isFutureDate(dateString: string): boolean {
+    if (!dateString) {
+        return false; // Consider empty date as valid or invalid based on your requirement
+    }
+    const selectedDate = new Date(dateString);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Compare only the date part
+    return selectedDate > today;
+}
   async onLogin() {
 
 
@@ -33,9 +43,16 @@ export class LoginComponent {
     };
 
     try {
-      console.log('Login request starting...');
-      const response = await axios.post('http://localhost:8080/api/hospital/patients/save', loginData);
-      console.log('Login request complete:', response.data);
+      const token=localStorage.getItem('token')
+      const response = await axios.post('http://localhost:8080/api/hospital/patients/save', loginData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+     // console.log('Login request complete:', response.data);
       alert('Login successful!');
       this.router.navigate(['/patient']);
     } catch (error) {

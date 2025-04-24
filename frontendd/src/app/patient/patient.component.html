@@ -1,33 +1,4 @@
-<!-- <div class="patient-container">
-   
-    <nav class="navbar">
-      <div class="navbar-left">
-        <h2>Hospital Management System</h2>
-      </div>
-      <div class="navbar-right">
-        <a (click)="onAbout()">About</a>
-        <a (click)="onContact()">Contact Us</a>
-        <a (click)="onNotifications()">Notifications</a>
-        <a (click)="onViewProfile()">Profile</a>
-        <a (click)="onLogout()">Logout</a>
-      </div>
-    </nav>
-  
-  
-    <div class="main-content">
-      <h1>Welcome, {{ patientName }}!</h1>
-      <p>Manage your appointments and medical history here.</p>
-      <div class="button-container">
-        <button class="btn btn-primary" (click)="onBookAppointment()">Book Appointment</button>
-        <button class="btn btn-secondary" (click)="onViewMedicalHistory()">View Medical History</button>
-        <button class="btn btn-primary" (click)="onViewAppointments()">My Appointments</button>
-
-      </div>
-    </div>
-  </div> -->
-
-  <div class="patient-container">
-    <!-- Navigation Bar -->
+<div class="patient-container">
     <nav class="navbar">
       <div class="navbar-left">
         <h2>Hospital Management System</h2>
@@ -39,29 +10,24 @@
       </div>
     </nav>
   
-    <!-- Main Content -->
     <div class="main-content">
       <h1>Welcome, {{ patientName }}!</h1>
       <p>Manage your appointments and medical history here.</p>
   
-      <!-- Cards Section -->
       <div class="cards-container">
-        <!-- Book Appointment Card -->
         <div class="card">
           <h3>Book an Appointment</h3>
           <p>Schedule an appointment with your preferred doctor at your convenience.</p>
           <button class="btn btn-primary" (click)="onBookAppointment()">Book Now</button>
         </div>
   
-        <!-- View Medical History Card -->
         <div class="card">
           <h3>View Medical History</h3>
           <p>Access your past medical records and prescriptions in one place.</p>
           <button class="btn btn-primary" (click)="onViewMedicalHistory()">View History</button>
         </div>
   
-        <!-- My Appointments Card -->
-        <div class="card">
+         <div class="card">
           <h3>My Appointments</h3>
           <p>Check your upcoming and past appointments with doctors.</p>
           <button class="btn btn-primary" (click)="onViewAppointments()">View Appointments</button>

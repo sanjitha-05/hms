@@ -33,7 +33,7 @@ export class AppointmentService {
   async cancelAppointment(appointmentId: number): Promise<string> {
     try {
       const token=localStorage.getItem('token')
-      const response = await axios.put(`${this.baseUrl}/${appointmentId}/cancel`,
+      const response = await axios.put(`${this.baseUrl}/${appointmentId}/cancel`,{},
         {
           headers: {
             Authorization: `Bearer ${token}`, 

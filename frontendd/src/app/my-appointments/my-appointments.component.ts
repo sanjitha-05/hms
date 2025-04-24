@@ -50,6 +50,7 @@ export class MyAppointmentsComponent implements OnInit {
   }
 
   async onCancel(appointmentId: number) {
+    console.log("safhia")
     const confirmation = confirm('Are you sure you want to cancel this appointment?');
     if (confirmation) {
       try {

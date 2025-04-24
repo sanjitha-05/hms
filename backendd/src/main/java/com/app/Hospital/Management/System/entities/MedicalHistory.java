@@ -30,7 +30,7 @@ public class MedicalHistory {
 
     @ManyToOne
     @JoinColumn(name="patientId")
-    @JsonBackReference
+    @JsonBackReference 
     @NotNull(message = "Patient profile is mandatory")
     private PatientProfile patient;
 
