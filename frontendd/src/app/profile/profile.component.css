@@ -41,3 +41,163 @@
     font-weight: bold;
     margin-bottom: 20px;
   }
+  /* profile.component.css */
+/* ... (your existing styles) ... */
+
+.edit-profile-form {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.edit-profile-form h3 {
+  text-align: center;
+  color: #007bff;
+  margin-bottom: 15px;
+}
+
+.edit-profile-form .form-group {
+  margin-bottom: 15px;
+}
+
+.edit-profile-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.edit-profile-form input[type='text'],
+.edit-profile-form input[type='date'] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.edit-profile-form .form-actions {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.edit-profile-form .form-actions button {
+  margin-left: 10px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.edit-profile-form .form-actions .btn-primary {
+  background-color: #28a745; /* Green for save */
+  color: white;
+}
+
+.edit-profile-form .form-actions .btn-primary:hover {
+  background-color: #1e7e34;
+}
+
+.edit-profile-form .form-actions .btn-secondary {
+  background-color: #6c757d; /* Grey for cancel */
+  color: white;
+}
+
+.edit-profile-form .form-actions .btn-secondary:hover {
+  background-color: #545b62;
+}
+.btn-primary {
+  background-color: #007bff; /* Bright blue */
+  color: white;
+  padding: 10px 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.profile-actions .btn-primary {
+  margin-right: 10px; /* Adds spacing to the right */
+}
+
+.btn-primary:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.btn-secondary {
+  background-color: #6c757d; /* Grey */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #545b62; /* Darker grey on hover */
+}
+.update-password-dialog {
+  width: 30%;
+  margin: 50px auto;
+  padding: 20px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.update-password-dialog h3 {
+  color: #007bff;
+  margin-bottom: 15px;
+}
+
+.update-password-dialog .form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.update-password-dialog label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.update-password-dialog input[type='password'] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.dialog-actions {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.dialog-actions .btn-primary {
+  background-color: #28a745; /* Green for confirm */
+}
+
+.dialog-actions .btn-primary:hover {
+  background-color: #218838;
+}
+
+.dialog-actions .btn-secondary {
+  background-color: #dc3545; /* Red for cancel */
+}
+
+.dialog-actions .btn-secondary:hover {
+  background-color: #c82333;
+}

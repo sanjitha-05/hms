@@ -1,6 +1,7 @@
 package com.app.Hospital.Management.System.Controllers;
 
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 
@@ -12,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +24,8 @@ import com.app.Hospital.Management.System.entities.User;
 import com.app.Hospital.Management.System.repositories.PatientProfileRepository;
 import com.app.Hospital.Management.System.repositories.UserRepository;
 import com.app.Hospital.Management.System.utils.JwtUtil;
+import com.app.Hospital.Management.System.dto.PasswordUpdateRequest;
+import com.app.Hospital.Management.System.Services.UserService;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -33,11 +37,14 @@ public class UserController {
 	private PasswordEncoder passwordEncoder;
 	@Autowired
     private PatientProfileRepository patientProfileRepository;
+	@Autowired
+	private UserService userService;
 
     @Autowired
     private UserRepository userRepository;
 	 @Autowired
 	 private JwtUtil jwtUtil;
+	
 	@Autowired
 	private UserRepository userRepo;
 	@Autowired
@@ -113,6 +120,34 @@ public class UserController {
             return new ResponseEntity<>("Patient not found", HttpStatus.NOT_FOUND);
         }
     }
+
+	@PutMapping("/users/{userId}/password")
+    public ResponseEntity<?> updatePassword(@PathVariable Long userId, @Valid @RequestBody PasswordUpdateRequest request) {
+        try {
+            userService.updateUserPassword(userId, request.getCurrentPassword(), request.getNewPassword());
+            return ResponseEntity.ok("Password updated successfully");
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED); // Or another appropriate status
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Failed to update password", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+	// @PutMapping("/{userId}/password")
+    // public ResponseEntity<?> updatePassword(@PathVariable Long userId, @Valid @RequestBody PasswordUpdateRequest request) {
+    //     try {
+    //         userService.updateUserPassword(userId, request.getCurrentPassword(), request.getNewPassword());
+    //         return ResponseEntity.ok("Password updated successfully");
+    //     } catch (IllegalArgumentException e) {
+    //         return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED); // Or another appropriate status
+    //     } catch (NoSuchElementException e) {
+    //         return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+    //     } catch (Exception e) {
+    //         return new ResponseEntity<>("Failed to update password", HttpStatus.INTERNAL_SERVER_ERROR);
+    //     }
+    // }
 	
 	
 }

@@ -102,3 +102,159 @@
   .card button.btn-secondary:hover {
     background-color: #5a6268;
   }
+  /* profile.component.css */
+
+.profile-container {
+  width: 600px; /* Adjust as needed */
+  margin: 30px auto;
+  padding: 30px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  text-align: left; /* Align text within the container */
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #007bff;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #f44336;
+  background-color: #fdecea;
+  border-radius: 4px;
+}
+
+.profile-details p {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.profile-details strong {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.profile-actions {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.profile-actions button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.profile-actions .btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.profile-actions .btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.profile-actions .btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.profile-actions .btn-secondary:hover {
+  background-color: #545b62;
+}
+
+/* Update Password Dialog Styles */
+.update-password-dialog {
+  position: fixed; /* Stay in place */
+  z-index: 10; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.update-password-dialog > div {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: left;
+}
+
+.update-password-dialog h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #007bff;
+}
+
+.update-password-dialog .form-group {
+  margin-bottom: 15px;
+}
+
+.update-password-dialog label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.update-password-dialog input[type=password] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Important for padding and border */
+  margin-bottom: 10px;
+}
+
+.update-password-dialog .dialog-actions {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.update-password-dialog .dialog-actions button {
+  margin-left: 10px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.update-password-dialog .dialog-actions .btn-primary {
+  background-color: #28a745; /* Green for update */
+  color: white;
+}
+
+.update-password-dialog .dialog-actions .btn-primary:hover {
+  background-color: #1e7e34;
+}
+
+.update-password-dialog .dialog-actions .btn-secondary {
+  background-color: #dc3545; /* Red for cancel */
+  color: white;
+}
+
+.update-password-dialog .dialog-actions .btn-secondary:hover {
+  background-color: #c82333;
+}

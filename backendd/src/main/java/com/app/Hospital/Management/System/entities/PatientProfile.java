@@ -47,7 +47,6 @@ public class PatientProfile {
     
     @NotNull(message = "Date of birth is mandatory")
     @Past(message = "Date of birth must be in the past")
-    @Column(updatable=false)
     private LocalDate dateOfBirth;
     
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
