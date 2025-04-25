@@ -48,4 +48,6 @@ public class DoctorSchedule {
         @JoinColumn(name="date", referencedColumnName="date")
     })
     private List<TimeSlot> availableTimeSlots;
+
+    private boolean isblocked;
 }

@@ -127,7 +127,7 @@ public class UserController {
             userService.updateUserPassword(userId, request.getCurrentPassword(), request.getNewPassword());
             return ResponseEntity.ok("Password updated successfully");
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED); // Or another appropriate status
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
         } catch (Exception e) {

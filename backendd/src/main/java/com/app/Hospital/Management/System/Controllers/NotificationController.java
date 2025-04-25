@@ -20,15 +20,6 @@ public class NotificationController {
 
     @Autowired
     private NotificationService service;
-    
-    @PostMapping("/create")
-    public ResponseEntity<String> createNotification(@RequestParam Long appointmentID) {
-        try {
-            service.createNotificationsForAppointment(appointmentID);
-            return new ResponseEntity<>("Notification created successfully.", HttpStatus.CREATED);
-        } catch (Exception e) {
-        	throw new ServiceUnavailableException("Failed to create notification: " + e.getMessage());        }
-    }
 
      @PostMapping("/create/patient/{appointmentID}")
     public ResponseEntity<String> createPatientNotification(@PathVariable Long appointmentID) {
@@ -58,7 +49,6 @@ public class NotificationController {
         return new ResponseEntity<>(notifications, HttpStatus.OK);
     }
 
-    // Endpoint to get notifications for a specific doctor
     @GetMapping("/doctor/{doctorId}")
     public ResponseEntity<List<Notification>> getNotificationsByDoctorId(@PathVariable Long doctorId) {
         List<Notification> notifications = service.getNotificationsByDoctorId(doctorId);
@@ -67,11 +57,6 @@ public class NotificationController {
         }
         return new ResponseEntity<>(notifications, HttpStatus.OK);
     }
-
-    // Endpoint to create a notification for the doctor
-    
-   
-
 
     @GetMapping
     public ResponseEntity<List<Notification>> getAllNotifications() {

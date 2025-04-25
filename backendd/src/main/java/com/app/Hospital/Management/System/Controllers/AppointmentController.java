@@ -113,15 +113,15 @@ public class AppointmentController {
         }
     }
 
-    @GetMapping("/status/{status}")
-    public ResponseEntity<List<Appointment>> getAppointmentsByStatus(@PathVariable String status) {
-        List<Appointment> appointments = appointmentService.getAppointmentsByStatus(status);
-        if (appointments.isEmpty()) {
-            throw new ResourceNotFoundException("No appointments found with status: " + status);
-        }
-        return ResponseEntity.ok(appointments);
-    }
-    
+//    @GetMapping("/status/{status}")
+//    public ResponseEntity<List<Appointment>> getAppointmentsByStatus(@PathVariable String status) {
+//        List<Appointment> appointments = appointmentService.getAppointmentsByStatus(status);
+//        if (appointments.isEmpty()) {
+//            throw new ResourceNotFoundException("No appointments found with status: " + status);
+//        }
+//        return ResponseEntity.ok(appointments);
+//    }
+//    
     @PutMapping("/{appointmentId}/cancel")
     public ResponseEntity<String> cancelAppointment(@PathVariable Long appointmentId) {
     	try {
@@ -132,22 +132,22 @@ public class AppointmentController {
         }
     }
     
-    @PutMapping("/{appointmentId}/reschedule")
-    public ResponseEntity<String> rescheduleAppointment(
-            @PathVariable Long appointmentId,
-            @RequestBody String newDateTimeString) {
-    	 try {
-             newDateTimeString = newDateTimeString.trim();
-             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-             LocalDateTime newDateTime = LocalDateTime.parse(newDateTimeString, formatter);
-             LocalDate newDate = newDateTime.toLocalDate();
-             LocalTime newTime = newDateTime.toLocalTime();   
-             String response = appointmentService.rescheduleAppointment(appointmentId, newDate, newTime);
-             return ResponseEntity.ok(response);
-         } catch (Exception e) {
-             throw new BadRequestException("Failed to reschedule appointment: " + e.getMessage());
-         }
-
-    }
+//    @PutMapping("/{appointmentId}/reschedule")
+//    public ResponseEntity<String> rescheduleAppointment(
+//            @PathVariable Long appointmentId,
+//            @RequestBody String newDateTimeString) {
+//    	 try {
+//             newDateTimeString = newDateTimeString.trim();
+//             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//             LocalDateTime newDateTime = LocalDateTime.parse(newDateTimeString, formatter);
+//             LocalDate newDate = newDateTime.toLocalDate();
+//             LocalTime newTime = newDateTime.toLocalTime();   
+//             String response = appointmentService.rescheduleAppointment(appointmentId, newDate, newTime);
+//             return ResponseEntity.ok(response);
+//         } catch (Exception e) {
+//             throw new BadRequestException("Failed to reschedule appointment: " + e.getMessage());
+//         }
+//
+//    }
 
 }
