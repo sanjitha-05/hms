@@ -19,6 +19,7 @@ public class MedicalHistoryService {
     private MedicalHistoryRepository medicalHistoryRepository;
 
     public MedicalHistory addMedicalHistory(MedicalHistory medicalHistory) {
+    	System.out.println(medicalHistory);
         logger.info("Adding new medical history for Patient ID: {}", medicalHistory.getPatient().getPatientId());
         return medicalHistoryRepository.save(medicalHistory);
     }

@@ -45,7 +45,6 @@ public class AppointmentService {
     	return appointmentRepository.findByPatientId(patientId);
     }
     
-
     public Appointment updateAppointmentStatus(Long id, AppointmentStatus newStatus) {
         logger.info("Updating appointment status for ID: {} to {}", id, newStatus);
         Appointment appointment = appointmentRepository.findById(id)

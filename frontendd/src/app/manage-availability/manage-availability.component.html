@@ -1,0 +1,83 @@
+<div class="manage-availability-container">
+    <h1>Manage Your Availability</h1>
+    <div class="cards-container">
+      <div class="card">
+        <h3>Block Availability for a Day</h3>
+        <p>Select a specific day to block your availability.</p>
+        <button class="btn btn-primary" (click)="blockAvailabilityForDay()">Block Day</button>
+      </div>
+  
+      <div class="card">
+        <h3>Unblock Availability for a Day</h3>
+        <p>Select a specific day to unblock your availability.</p>
+        <button class="btn btn-primary" (click)="unblockAvailabilityForDay()">Unblock Day</button>
+      </div>
+  
+      <!-- <div class="card">
+        <h3>Block Availability for Date and Time</h3>
+        <p>Select a specific date and time to block your availability.</p>
+        <button class="btn btn-primary" (click)="blockAvailabilityForDateTime()">Block Time</button>
+      </div>
+  
+      <div class="card">
+        <h3>Unblock Availability for Date and Time</h3>
+        <p>Select a specific date and time to unblock your availability.</p>
+        <button class="btn btn-primary" (click)="unblockAvailabilityForDateTime()">Unblock Time</button>
+      </div> -->
+    </div>
+    <button class="btn btn-secondary" routerLink="/doctor">Back to Dashboard</button>
+  
+   <!-- Date selection popup -->
+<div *ngIf="showBlockDayPopup" class="popup-overlay">
+    <div class="popup-content">
+      <h3>Select a Date to Block</h3>
+      <ul *ngIf="availableDates.length > 0; else noDates">
+        <li *ngFor="let date of availableDates" (click)="selectDateToBlock(date)" class="selectable-date">
+          {{ date }}
+        </li>
+      </ul>
+      <ng-template #noDates>
+        <p>No available dates found.</p>
+      </ng-template>
+      <button class="btn btn-secondary" (click)="closeBlockDayPopup()">Cancel</button>
+    </div>
+  </div>
+  
+  <!-- Confirmation popup -->
+  <div *ngIf="showConfirmationPopup" class="popup-overlay">
+    <div class="popup-content">
+      <h3>Are you sure you want to block this date?</h3>
+      <p>{{ selectedDate }}</p>
+      <div class="popup-actions">
+        <button class="btn btn-primary" (click)="confirmBlockDate()">Yes, Block It</button>
+        <button class="btn btn-secondary" (click)="cancelBlockDate()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="showUnblockDayPopup" class="popup-overlay">
+    <div class="popup-content">
+      <h3>Select a Date to Unblock</h3>
+      <ul *ngIf="blockedDates.length > 0; else noBlockedDates">
+        <li *ngFor="let date of blockedDates" (click)="selectDateToUnblock(date)" class="selectable-date">
+          {{ date }}
+        </li>
+      </ul>
+      <ng-template #noBlockedDates>
+        <p>No blocked dates found.</p>
+      </ng-template>
+      <button class="btn btn-secondary" (click)="closeUnblockDayPopup()">Cancel</button>
+    </div>
+  </div>
+
+  <div *ngIf="showConfirmationnPopup" class="popup-overlay">
+    <div class="popup-content">
+      <h3>Are you sure you want to unblock this date?</h3>
+      <p>{{ selectedDate }}</p>
+      <div class="popup-actions">
+        <button class="btn btn-primary" (click)="confirmUnblockDate()">Yes, Unblock It</button>
+        <button class="btn btn-secondary" (click)="cancelConfirmation()">Cancel</button>
+      </div>
+    </div>
+  </div>
+  

@@ -2,7 +2,6 @@ package com.app.Hospital.Management.System.Controllers;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,77 +11,63 @@ import org.springframework.web.bind.annotation.*;
 
 import com.app.Hospital.Management.System.Services.DoctorScheduleService;
 import com.app.Hospital.Management.System.entities.DoctorSchedule;
-import com.app.Hospital.Management.System.entities.PatientProfile;
 import com.app.Hospital.Management.System.entities.TimeSlot;
-import com.app.Hospital.Management.System.exceptions.ConflictException;
-import com.app.Hospital.Management.System.exceptions.IdNotFoundException;
-import com.app.Hospital.Management.System.exceptions.ServiceUnavailableException;
-import com.app.Hospital.Management.System.exceptions.UnauthorizedAccessException;
-import com.app.Hospital.Management.System.repositories.UserRepository;
-
-import jakarta.transaction.Transactional;
 
 @RestController
 @RequestMapping("/api/hospital/doctors")
 public class DoctorScheduleController {
-	
-	@Autowired
-	private DoctorScheduleService doctorScheduleService;
-	@Autowired
-	private UserRepository userrepo;
-	
-	@PostMapping("/save")
-	@Transactional
-	public ResponseEntity<DoctorSchedule> saveDoctor(@RequestBody DoctorSchedule d){
-		 try {
-	            DoctorSchedule doc = doctorScheduleService.saveDoctor(d);
-	            return ResponseEntity.ok(doc);
-	        } catch (Exception e) {
-	            throw new ServiceUnavailableException("Service is temporarily unavailable. Please try again later.");
-	        }
-	}
-	
-	@GetMapping("/getall")
-	public ResponseEntity<List<DoctorSchedule>> getAllDoctors(){
-		List<DoctorSchedule> doctors=doctorScheduleService.getAllDoctors();
-		 if (doctors.isEmpty()) {
-	            throw new IdNotFoundException("No doctors found");
-	        }
-		return ResponseEntity.ok(doctors);
-	}
+    
+    @Autowired
+    private DoctorScheduleService doctorScheduleService;
 
-// 	@GetMapping("/{doctorId}/name")
-// public ResponseEntity<String> getDoctorName(@PathVariable Long doctorId) {
-//     DoctorSchedule doctor = doctorScheduleService.getDoctorById(doctorId);
-//     if (doctor!=null) {
-//         return ResponseEntity.ok(doctor.getName());
-//     } else {
-//         throw new IdNotFoundException("Doctor with ID " + doctorId + " not found");
-//     }
-// }
-	
-	@GetMapping("{doctorId}/available-dates")
-	public ResponseEntity<List<LocalDate>> getAvailableDates(@PathVariable Long doctorId) {
-	    List<LocalDate> availableDates = doctorScheduleService.getAvailableDatesForDoctor(doctorId);
-	    return ResponseEntity.ok(availableDates);
-	}
-	
-	@GetMapping("/{doctorId}/available-dates/{date}/time-slots")
-	public ResponseEntity<List<TimeSlot>> getAvailableTimeSlots(
-	        @PathVariable Long doctorId,
-	        @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-	    List<TimeSlot> availableTimeSlots = doctorScheduleService.getAvailableTimeSlotsForDoctorAndDate(doctorId, date);
-	    return ResponseEntity.ok(availableTimeSlots);
-	}
-	
-	@PutMapping("/create/{id}")
-	public ResponseEntity<String> createAvailability(@PathVariable Long id, Authentication authentication){
-        try {
-        	System.out.println("egduflkwdhfklh");
-            String s = doctorScheduleService.createAvailability(id);
-            return ResponseEntity.ok(s);
-        } catch (Exception e) {
-            throw new ConflictException("Conflict occurred while creating availability for doctor ID: " + id);
-        }
-    }	
+    @PostMapping("/save")
+    public ResponseEntity<DoctorSchedule> saveDoctor(@RequestBody DoctorSchedule doctor) {
+        return ResponseEntity.ok(doctorScheduleService.saveDoctor(doctor));
+    }
+
+    @GetMapping("/getall")
+    public ResponseEntity<List<DoctorSchedule>> getAllDoctors() {
+        return ResponseEntity.ok(doctorScheduleService.getAllDoctors());
+    }
+
+    @GetMapping("/{doctorId}/available-dates")
+    public ResponseEntity<List<LocalDate>> getAvailableDates(@PathVariable Long doctorId) {
+        return ResponseEntity.ok(doctorScheduleService.getAvailableDatesForDoctor(doctorId));
+    }
+
+    @GetMapping("/{doctorId}/available-dates/{date}/time-slots")
+    public ResponseEntity<List<TimeSlot>> getAvailableTimeSlots(
+            @PathVariable Long doctorId,
+            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        return ResponseEntity.ok(doctorScheduleService.getAvailableTimeSlotsForDoctorAndDate(doctorId, date));
+    }
+
+    @PutMapping("/create/{id}")
+    public ResponseEntity<String> createAvailability(@PathVariable Long id, Authentication authentication) {
+        return ResponseEntity.ok(doctorScheduleService.createAvailability(id));
+    }
+    
+    @GetMapping("/{doctorId}/free-dates")
+    public ResponseEntity<List<LocalDate>> getFreeDates(@PathVariable Long doctorId) {
+        return ResponseEntity.ok(doctorScheduleService.getFreeDatesWithNoAppointments(doctorId));
+    }
+    
+    @GetMapping("/{doctorId}/blocked-dates")
+    public ResponseEntity<List<LocalDate>> getBlockedDates(@PathVariable Long doctorId) {
+        return ResponseEntity.ok(doctorScheduleService.getBlockedDates(doctorId));
+    }
+
+    @PutMapping("/unblock/{doctorID}/{date}")
+    public ResponseEntity<String> unblockAvailability(@PathVariable Long doctorID, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        return ResponseEntity.ok(doctorScheduleService.unblockAvailability(doctorID, date));
+    }
+
+    @PostMapping("/{doctorId}/block-date")
+    public ResponseEntity<String> blockDate(
+        @PathVariable Long doctorId,
+        @RequestBody @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    // Implement your service logic to block the date for the given doctor
+    doctorScheduleService.blockAvailability(doctorId, date);
+    return ResponseEntity.ok("Date blocked successfully.");
+}
 }

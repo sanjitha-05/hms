@@ -64,5 +64,8 @@ export class DoctorComponent {
             queryParams: { userType: 'doctor', doctorId: this.doctorId }
           });
         }
+        navigateToManageAvailability() {
+          this.router.navigate(['/manage-availability']);
+        }
 
 }

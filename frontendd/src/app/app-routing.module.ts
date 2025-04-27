@@ -11,6 +11,7 @@ import { NotificationComponent } from './notification/notifications.component';
 import { MyAppointmentsComponent } from './my-appointments/my-appointments.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DoctorAppointmentsComponent } from './doctor-appointments/doctor-appointments.component';
+import { ManageAvailabilityComponent } from './manage-availability/manage-availability.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent }, // Default route
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'doctor-appointments', component: DoctorAppointmentsComponent },
   { path: 'doctor-notifications', component: NotificationComponent },
+  { path: 'manage-availability', component: ManageAvailabilityComponent },
 
   // { path: '', redirectTo: '/patient', pathMatch: 'full' }
 ];

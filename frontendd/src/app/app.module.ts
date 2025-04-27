@@ -20,7 +20,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { DoctorAppointmentsComponent } from './doctor-appointments/doctor-appointments.component';
 import { PrescriptionDialogComponent } from './prescription-dialog/prescription-dialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Required for Toastr
-import { ToastrModule } from 'ngx-toastr'; // Import ToastrModule
+import { ToastrModule } from 'ngx-toastr';
+import { ManageAvailabilityComponent } from './manage-availability/manage-availability.component'; // Import ToastrModule
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { ToastrModule } from 'ngx-toastr'; // Import ToastrModule
     MyAppointmentsComponent,
     ProfileComponent,
     DoctorAppointmentsComponent,
-    PrescriptionDialogComponent
+    PrescriptionDialogComponent,
+    ManageAvailabilityComponent
   ],
   imports: [
     BrowserModule,

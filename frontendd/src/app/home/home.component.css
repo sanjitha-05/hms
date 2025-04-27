@@ -18,7 +18,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px; /* Limit width for better readability */
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -37,38 +37,28 @@ body {
   text-decoration: none;
   margin: 0 10px;
   font-size: 1rem;
-  transition: color 0.3s ease; /* Smooth hover transition */
+  transition: color 0.3s ease;
 }
 
 .navbar-right a:hover {
-  color: #cce5ff; /* Lighter blue on hover */
-  text-decoration: none; /* Remove underline for a cleaner look */
+  color: #cce5ff;
+  text-decoration: none;
 }
 
 /* Hero Section with Background Image */
 .hero-section {
   position: relative;
-  height: 500px; /* Adjust height as needed */
-  color: white;
+  height: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  overflow: hidden; /* Prevent image from overflowing */
-}
-
-.hero-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
+  overflow: hidden;
+  background: url('../../assets/Image.jfif') no-repeat center center/cover;
 }
 
 .hero-overlay {
-  background-color: rgba(0, 0, 0, 0.4); /* Slightly darker overlay */
+  background-color: rgba(0, 0, 0, 0.1); /* Reduced opacity for lighter overlay */
   position: absolute;
   top: 0;
   left: 0;
@@ -80,29 +70,31 @@ body {
 }
 
 .hero-text {
-  max-width: 800px; /* Limit text width for better readability */
+  max-width: 800px;
   padding: 20px;
+  z-index: 1;
+  color: white;
 }
 
 .hero-text h2 {
-  font-size: 3rem; /* Larger title */
+  font-size: 3rem;
   margin-bottom: 15px;
   font-weight: bold;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Add text shadow */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 .hero-text p {
   font-size: 1.3rem;
   margin-bottom: 30px;
   line-height: 1.7;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6); /* Add text shadow */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
 }
 
 .btn-primary {
   background-color: #007bff;
   color: white;
   border: none;
-  padding: 12px 25px; /* Slightly larger button */
+  padding: 12px 25px;
   font-size: 1.1rem;
   cursor: pointer;
   border-radius: 5px;
@@ -117,13 +109,13 @@ body {
 .about-section,
 .help-section,
 .contact-section {
-  padding: 60px 20px; /* More padding */
+  padding: 60px 20px;
   text-align: center;
-  background-color: white; /* White background for content sections */
+  background-color: white;
   margin-bottom: 30px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Softer shadow */
-  max-width: 1000px; /* Limit width */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -143,7 +135,7 @@ body {
   font-size: 1.1rem;
   margin-bottom: 25px;
   line-height: 1.8;
-  color: #555; /* Darker text for better readability */
+  color: #555;
 }
 
 ul {
@@ -169,7 +161,7 @@ ul li strong {
 }
 
 .social-icons img {
-  height: 35px; /* Slightly larger icons */
+  height: 35px;
   margin: 0 15px;
   cursor: pointer;
   opacity: 0.7;
@@ -185,7 +177,7 @@ ul li strong {
   background-color: #333;
   color: white;
   text-align: center;
-  padding: 20px 0; /* More padding */
+  padding: 20px 0;
   font-size: 0.9rem;
 }
 

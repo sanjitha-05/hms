@@ -63,19 +63,20 @@ export class BookAppointmentComponent implements OnInit {
 
       const response = await axios.get(`http://localhost:8080/api/hospital/doctors/${this.selectedDoctorId}/available-dates`,{
         headers: {
-          Authorization: `Bearer ${token}`, // Add the token to the Authorization header
+          Authorization: `Bearer ${token}`, 
           'Content-Type': 'application/json',
         },
-      }); // Retrieve the JWT token from localStorage
+      });
 
       const allDates = response.data; 
+      console.log(allDates)
       const currentDate = new Date();
       const currentDateString = currentDate.toISOString().split('T')[0]; // Get today's date in 'YYYY-MM-DD' format
 
       this.availableDates = allDates.filter((date: string) => {
-        return date >= currentDateString; // Compare only the date part
+        return date >= currentDateString; 
       });
-      this.availableTimeSlots = []; // Reset time slots when doctor changes
+      this.availableTimeSlots = []; 
       this.selectedDate = ''; 
     } catch (error) {
       console.error('Error fetching available dates:', error);

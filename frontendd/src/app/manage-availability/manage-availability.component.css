@@ -1,0 +1,240 @@
+/* manage-availability.component.css */
+
+.manage-availability-container {
+    padding: 25px;
+    background: linear-gradient(to right, #d1e8ff, #9ACBD0); /* Matching background */
+    min-height: 100vh; /* Match full viewport height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0; /* Reset margin */
+    font-family: Arial, sans-serif; /* Match font */
+  }
+  
+  .manage-availability-container h1 {
+    font-size: 2em;
+    color: #007bff; /* Match primary color */
+    margin-bottom: 25px;
+    text-align: center;
+  }
+  
+  .manage-availability-container .cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    width: 90%; /* Match container width */
+    max-width: none; /* Remove max-width to fill container */
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  
+  .manage-availability-container .card {
+    background-color: #f9f9f9; /* Match card background */
+    border: 1px solid #ddd; /* Match card border */
+    border-radius: 10px; /* Match card border radius */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Match card shadow */
+    width: 400px; /* Match card width */
+    padding: 30px; /* Match card padding */
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Match card transition */
+  }
+  
+  .manage-availability-container .card:hover {
+    transform: translateY(-5px); /* Match card hover transform */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Match card hover shadow */
+  }
+  
+  .manage-availability-container .card h3 {
+    font-size: 1.5em;
+    color: #007bff; /* Match primary color */
+    margin-top: 0;
+    margin-bottom: 20px; /* Adjusted margin to match */
+  }
+  
+  .manage-availability-container .card p {
+    font-size: 1rem; /* Match paragraph font size */
+    color: #555; /* Match paragraph color */
+    margin-bottom: 25px; /* Adjusted margin to match */
+    line-height: 1.5; /* Slightly reduced line height for better readability */
+  }
+  
+  .manage-availability-container .card .btn-primary {
+    background-color: #007bff; /* Match primary button background */
+    color: white; /* Match primary button text color */
+    border: none;
+    padding: 12px 25px; /* Match button padding */
+    border-radius: 5px; /* Match button border radius */
+    cursor: pointer;
+    font-size: 1rem; /* Match button font size */
+    transition: background-color 0.3s ease;
+  }
+  
+  .manage-availability-container .card .btn-primary:hover {
+    background-color: #0056b3; /* Match primary button hover background */
+  }
+  
+  .manage-availability-container .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 12px 25px; /* Match button padding */
+    border-radius: 5px; /* Match button border radius */
+    cursor: pointer;
+    font-size: 1rem; /* Match button font size */
+    transition: background-color 0.3s ease;
+    margin-top: 25px;
+  }
+  
+  .manage-availability-container .btn-secondary:hover {
+    background-color: #545b62;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .manage-availability-container h1 {
+      font-size: 1.8em;
+      margin-bottom: 20px;
+    }
+  
+    .manage-availability-container .cards-container {
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+  
+    .manage-availability-container .card {
+      width: 100%; /* Make cards full width on smaller screens */
+      padding: 20px;
+    }
+  
+    .manage-availability-container .card h3 {
+      font-size: 1.3em;
+      margin-bottom: 15px;
+    }
+  
+    .manage-availability-container .card p {
+      font-size: 0.95em;
+      margin-bottom: 20px;
+    }
+  
+    .manage-availability-container .card .btn-primary,
+    .manage-availability-container .btn-secondary {
+      font-size: 0.9em;
+      padding: 10px 20px;
+    }
+  }
+  .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    min-width: 300px;
+  }
+  
+  .popup-actions button {
+    margin: 0 10px;
+  }
+  .btn-primary {
+    background-color: #ff4b5c; /* Bold red color for action */
+    color: white; /* White text for contrast */
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  .btn-primary:hover {
+    background-color: #d43f4a; /* Slightly darker red on hover */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect for depth */
+  }
+  
+  .btn-primary:active {
+    background-color: #b23339; /* Even darker red on click */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .btn-primary:focus {
+    outline: none;
+    box-shadow: 0px 0px 10px rgba(255, 75, 92, 0.6); /* Soft glow focus effect */
+  }
+  .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's on top */
+  }
+
+  .popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    min-width: 300px;
+  }
+
+  .popup-content h3 {
+    color: #007bff;
+    margin-bottom: 15px;
+  }
+
+  .popup-content ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 15px;
+    max-height: 200px; /* Optional: for scrolling if many dates */
+    overflow-y: auto;
+  }
+
+  .popup-content ul li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+  }
+
+  .popup-content ul li:last-child {
+    border-bottom: none;
+  }
+
+  .popup-content ul li:hover {
+    background-color: #f0f0f0;
+  }
+
+  .popup-actions button {
+    margin: 0 10px;
+  }
+
+  .selectable-date {
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+  }
+
+  .selectable-date:hover {
+    background-color: #e0f7fa;
+  }
+  
+  

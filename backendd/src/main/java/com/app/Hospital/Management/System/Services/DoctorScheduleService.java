@@ -29,6 +29,9 @@ public class DoctorScheduleService {
 
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private AppointmentRepository appointmentRepo;
 
     public DoctorSchedule saveDoctor(DoctorSchedule doctor) {
         logger.info("Saving doctor schedule for Doctor ID: {}", doctor.getDoctorId());
@@ -116,6 +119,58 @@ public class DoctorScheduleService {
         return "Availability does not exist";
     }
 
+//    public String unblockAvailability(Long doctorID, LocalDate date) {
+//        logger.info("Unblocking availability for Doctor ID: {} on Date: {}", doctorID, date);
+//        if (!userRepository.existsById(doctorID)) {
+//            logger.warn("Doctor ID does not exist: {}", doctorID);
+//            throw new ResourceNotFoundException("Doctor ID does not exist");
+//        }
+//
+//        DoctorSchedule availability = repo.findById(new ScheduledId(doctorID, date)).orElse(null);
+//        if (availability != null) {
+//            if (!availability.isIsblocked()) {
+//                return date + " is already unblocked";
+//            }
+//            availability.setIsblocked(false);
+//            availability.getAvailableTimeSlots().forEach(slot -> slot.setBlocked(false));
+//            repo.save(availability);
+//            logger.info("Date {} unblocked successfully for Doctor ID: {}", date, doctorID);
+//            return date + " is unblocked successfully";
+//        }
+//        logger.warn("Availability does not exist for Date: {}", date);
+//        return "Availability does not exist";
+//    }
+    
+    public List<LocalDate> getFreeDatesWithNoAppointments(Long doctorId) {
+        logger.info("Fetching free dates with no appointments for Doctor ID: {}", doctorId);
+
+        // Get all scheduled dates for the doctor
+        List<DoctorSchedule> allSchedules = repo.findByDoctorId(doctorId);
+        List<LocalDate> allScheduledDates = allSchedules.stream()
+                .map(DoctorSchedule::getDate)
+                .collect(Collectors.toList());
+
+        // Get all dates where the doctor has *scheduled* appointments
+        List<Appointment> scheduledAppointments = appointmentRepo.findByDoctorDoctorIdAndStatus(doctorId, AppointmentStatus.SCHEDULED);
+        List<LocalDate> scheduledAppointmentDates = scheduledAppointments.stream()
+                .map(appointment -> appointment.getDoctor().getDate())
+                .distinct() // Get unique dates with scheduled appointments
+                .collect(Collectors.toList());
+
+        // Find dates in the schedule that are not in the scheduled appointment dates
+        return allScheduledDates.stream()
+                .filter(date -> !scheduledAppointmentDates.contains(date))
+                .collect(Collectors.toList());
+    }
+    
+    public List<LocalDate> getBlockedDates(Long doctorId) {
+        logger.info("Fetching blocked dates for Doctor ID: {}", doctorId);
+        List<DoctorSchedule> blockedSchedules = repo.findByDoctorIdAndIsblockedTrue(doctorId);
+        return blockedSchedules.stream()
+                .map(DoctorSchedule::getDate)
+                .collect(Collectors.toList());
+    }
+
     public String unblockAvailability(Long doctorID, LocalDate date) {
         logger.info("Unblocking availability for Doctor ID: {} on Date: {}", doctorID, date);
         if (!userRepository.existsById(doctorID)) {
@@ -137,4 +192,5 @@ public class DoctorScheduleService {
         logger.warn("Availability does not exist for Date: {}", date);
         return "Availability does not exist";
     }
+	
 }
