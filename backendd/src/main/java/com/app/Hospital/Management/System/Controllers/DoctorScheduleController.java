@@ -43,7 +43,7 @@ public class DoctorScheduleController {
     }
 
     @PutMapping("/create/{id}")
-    public ResponseEntity<String> createAvailability(@PathVariable Long id, Authentication authentication) {
+    public ResponseEntity<String> createAvailability(@PathVariable Long id) {
         return ResponseEntity.ok(doctorScheduleService.createAvailability(id));
     }
     
@@ -66,7 +66,6 @@ public class DoctorScheduleController {
     public ResponseEntity<String> blockDate(
         @PathVariable Long doctorId,
         @RequestBody @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-    // Implement your service logic to block the date for the given doctor
     doctorScheduleService.blockAvailability(doctorId, date);
     return ResponseEntity.ok("Date blocked successfully.");
 }

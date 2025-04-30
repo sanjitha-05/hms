@@ -38,7 +38,6 @@ public class MedicalHistory {
     private String diagnosis;
 
     @NotBlank(message = "Treatment is mandatory")
-    @Column(unique=true)
     private String treatment;
 
     @NotNull(message = "Date of visit is mandatory")

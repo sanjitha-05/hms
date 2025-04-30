@@ -25,6 +25,9 @@ public interface DoctorScheduleRepository extends JpaRepository<DoctorSchedule, 
 	    String findNameByDoctorId(@Param("doctorId") Long doctorId);
 
 		List<DoctorSchedule> findByDoctorIdAndIsblockedTrue(Long doctorId);
+
+		List<DoctorSchedule> findByDoctorIdAndIsblockedFalse(Long doctorId);
+
 	
 	// DoctorSchedule findFirstById(Long id);
 	

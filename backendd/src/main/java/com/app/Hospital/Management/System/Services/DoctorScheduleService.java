@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,15 +79,17 @@ public class DoctorScheduleService {
 
         LocalDate startDate = LocalDate.now();
         LocalDate endDate = startDate.plusDays(6);
+        
+        List<TimeSlot> timeSlots=Stream.of(9,10,11,13,14,15).map(hour-> new TimeSlot(LocalTime.of(hour, 0),false)).collect(Collectors.toList());
 
-        List<TimeSlot> timeSlots = List.of(
-                new TimeSlot(LocalTime.of(9, 0), false),
-                new TimeSlot(LocalTime.of(10, 0), false),
-                new TimeSlot(LocalTime.of(11, 0), false),
-                new TimeSlot(LocalTime.of(13, 0), false),
-                new TimeSlot(LocalTime.of(14, 0), false),
-                new TimeSlot(LocalTime.of(15, 0), false)
-        );
+//        List<TimeSlot> timeSlots = List.of(
+//                new TimeSlot(LocalTime.of(9, 0), false),
+//                new TimeSlot(LocalTime.of(10, 0), false),
+//                new TimeSlot(LocalTime.of(11, 0), false),
+//                new TimeSlot(LocalTime.of(13, 0), false),
+//                new TimeSlot(LocalTime.of(14, 0), false),
+//                new TimeSlot(LocalTime.of(15, 0), false)
+//        );
 
         for (LocalDate date = startDate; !date.isAfter(endDate); date = date.plusDays(1)) {
             DoctorSchedule sc = new DoctorSchedule(doctorId, doctorName, date, new ArrayList<>(timeSlots), false);
@@ -119,45 +122,20 @@ public class DoctorScheduleService {
         return "Availability does not exist";
     }
 
-//    public String unblockAvailability(Long doctorID, LocalDate date) {
-//        logger.info("Unblocking availability for Doctor ID: {} on Date: {}", doctorID, date);
-//        if (!userRepository.existsById(doctorID)) {
-//            logger.warn("Doctor ID does not exist: {}", doctorID);
-//            throw new ResourceNotFoundException("Doctor ID does not exist");
-//        }
-//
-//        DoctorSchedule availability = repo.findById(new ScheduledId(doctorID, date)).orElse(null);
-//        if (availability != null) {
-//            if (!availability.isIsblocked()) {
-//                return date + " is already unblocked";
-//            }
-//            availability.setIsblocked(false);
-//            availability.getAvailableTimeSlots().forEach(slot -> slot.setBlocked(false));
-//            repo.save(availability);
-//            logger.info("Date {} unblocked successfully for Doctor ID: {}", date, doctorID);
-//            return date + " is unblocked successfully";
-//        }
-//        logger.warn("Availability does not exist for Date: {}", date);
-//        return "Availability does not exist";
-//    }
-    
     public List<LocalDate> getFreeDatesWithNoAppointments(Long doctorId) {
         logger.info("Fetching free dates with no appointments for Doctor ID: {}", doctorId);
 
-        // Get all scheduled dates for the doctor
-        List<DoctorSchedule> allSchedules = repo.findByDoctorId(doctorId);
+        List<DoctorSchedule> allSchedules = repo.findByDoctorIdAndIsblockedFalse(doctorId);
         List<LocalDate> allScheduledDates = allSchedules.stream()
                 .map(DoctorSchedule::getDate)
                 .collect(Collectors.toList());
 
-        // Get all dates where the doctor has *scheduled* appointments
         List<Appointment> scheduledAppointments = appointmentRepo.findByDoctorDoctorIdAndStatus(doctorId, AppointmentStatus.SCHEDULED);
         List<LocalDate> scheduledAppointmentDates = scheduledAppointments.stream()
                 .map(appointment -> appointment.getDoctor().getDate())
-                .distinct() // Get unique dates with scheduled appointments
+                .distinct()
                 .collect(Collectors.toList());
 
-        // Find dates in the schedule that are not in the scheduled appointment dates
         return allScheduledDates.stream()
                 .filter(date -> !scheduledAppointmentDates.contains(date))
                 .collect(Collectors.toList());

@@ -21,11 +21,6 @@ public class Notification {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long notificationId;
-
-//    @ManyToOne
-//    @JoinColumn(name="patientId")
-//    @NotNull(message = "Patient profile is mandatory")
-//    private PatientProfile patient;
     
     @ManyToOne
     @JoinColumn(name="appointmentId")

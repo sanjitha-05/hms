@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
-import { Observable, from } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { defer } from 'rxjs';
-import { tap } from 'rxjs/operators';
 
 interface LocalDate {
   year: number;

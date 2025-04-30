@@ -48,16 +48,10 @@ public class Appointment {
     })
     @NotNull(message = "Doctor schedule is mandatory")
     private DoctorSchedule doctor;
-
-//    @NotNull(message = "Appointment date is mandatory")
-//    @Future(message = "Appointment date must be in the future")
-//    private LocalDate appointmentDate;
     
     @NotNull(message = "Appointment time is mandatory")
     @Future(message = "Appointment time must be in the future")
     private LocalTime appointmentTime;
-    
-    
 
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Appointment status is mandatory")

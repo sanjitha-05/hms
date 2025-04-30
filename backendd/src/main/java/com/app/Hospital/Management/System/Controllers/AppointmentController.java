@@ -43,7 +43,6 @@ public class AppointmentController {
                 .map(ResponseEntity::ok)
                 .orElseThrow(() -> new ResourceNotFoundException("Appointment not found with ID: " + id));
     }
-
     @GetMapping("/patient/{patientId}")
     public ResponseEntity<List<Appointment>> getAppointmentsByPatientId(@PathVariable Long patientId) {
         return ResponseEntity.ok(appointmentService.getAppointmentsByPatientId(patientId));

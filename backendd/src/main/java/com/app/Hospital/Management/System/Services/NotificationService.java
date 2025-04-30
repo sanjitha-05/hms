@@ -66,38 +66,38 @@ public class NotificationService {
 
         Notification patientNotification = new Notification();
         patientNotification.setAppointment(appointment);
-        patientNotification.setMessage("Dear " + patient.getName() + ", your appointment with Dr. " + doctor.getName()
+        patientNotification.setMessage("Dear " + patient.getName() + ", your appointment with " + doctor.getName()
                 + " is " + appointment.getStatus() + " on " + doctor.getDate()
                 + " at " + appointment.getAppointmentTime() + ". Appointment ID: " + appointmentID + ".");
         patientNotification.setTimeStamp(LocalDateTime.now());
         notificationRepository.save(patientNotification);
     }
 
-    public void createDoctorNotification(Long appointmentID) {
-        logger.info("Creating doctor notification for Appointment ID: {}", appointmentID);
-        Appointment appointment = appointmentRepository.findByAppointmentId(appointmentID)
-                .orElseThrow(() -> {
-                    logger.error("Appointment not found for ID: {}", appointmentID);
-                    return new RuntimeException("Appointment not found with ID: " + appointmentID);
-                });
+   public void createDoctorNotification(Long appointmentID) {
+       logger.info("Creating doctor notification for Appointment ID: {}", appointmentID);
+       Appointment appointment = appointmentRepository.findByAppointmentId(appointmentID)
+               .orElseThrow(() -> {
+                   logger.error("Appointment not found for ID: {}", appointmentID);
+                   return new RuntimeException("Appointment not found with ID: " + appointmentID);
+               });
 
-        PatientProfile patient = appointment.getPatient();
-        DoctorSchedule doctor = appointment.getDoctor();
-        
-        if (patient == null || doctor == null) {
-            logger.error("Patient or Doctor details missing for Appointment ID: {}", appointmentID);
-            throw new RuntimeException("Missing details for Appointment ID: " + appointmentID);
-        }
+       PatientProfile patient = appointment.getPatient();
+       DoctorSchedule doctor = appointment.getDoctor();
+       
+       if (patient == null || doctor == null) {
+           logger.error("Patient or Doctor details missing for Appointment ID: {}", appointmentID);
+           throw new RuntimeException("Missing details for Appointment ID: " + appointmentID);
+       }
 
-        Notification doctorNotification = new Notification();
-        doctorNotification.setAppointment(appointment);
-        doctorNotification.setMessage("Dr. " + doctor.getName() + ", you have an appointment with " + patient.getName()
-                + " on " + doctor.getDate() + " at " + appointment.getAppointmentTime()
-                + ". Appointment ID: " + appointmentID + ".");
-        doctorNotification.setTimeStamp(LocalDateTime.now());
-        notificationRepository.save(doctorNotification);
-    }
-    
+       Notification doctorNotification = new Notification();
+       doctorNotification.setAppointment(appointment);
+       doctorNotification.setMessage("Dr. " + doctor.getName() + ", you have an appointment with " + patient.getName()
+               + " on " + doctor.getDate() + " at " + appointment.getAppointmentTime()
+               + ". Appointment ID: " + appointmentID + ".");
+       doctorNotification.setTimeStamp(LocalDateTime.now());
+       notificationRepository.save(doctorNotification);
+   }
+   
     public List<Notification> getNotificationsByPatientId(Long patientId) {
     	return notificationRepository.findNotificationsByPatientId(patientId); 	
     }

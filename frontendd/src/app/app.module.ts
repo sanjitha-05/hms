@@ -56,6 +56,7 @@ import { ManageAvailabilityComponent } from './manage-availability/manage-availa
       preventDuplicates: true, 
     }),
   ],
+  exports:[PrescriptionComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

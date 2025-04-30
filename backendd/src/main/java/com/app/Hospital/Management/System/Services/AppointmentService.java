@@ -93,6 +93,8 @@ public class AppointmentService {
 
         appointment.setStatus(AppointmentStatus.CANCELLED);
         appointmentRepository.save(appointment);
+        notificationService.createPatientNotification(appointment.getAppointmentId());
+        notificationService.createDoctorNotification(appointment.getAppointmentId());
 
         updateTimeSlotAvailability(appointment.getDoctor(), appointment.getAppointmentTime(), false);
         logger.info("Appointment cancelled successfully.");
